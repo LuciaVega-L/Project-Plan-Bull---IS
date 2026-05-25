@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="902998b6-1a8c-4c2c-b2b6-aa6f8487ff6d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_AsynchronousVirtualModality.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_AsynchronousVirtualModality.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Group.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_MaxCapacity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_MaxCapacity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Modality.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Modality.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_OnSitePresencial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_OnSitePresencial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Professor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Professor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Registration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Registration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Semester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Semester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_SynchronousVirtualModality.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_SynchronousVirtualModality.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Ubication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Ubication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/OperationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/dto/OperationResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/prueba.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/prueba.txt" afterDir="false" />
-    </list>
+    <list default="true" id="902998b6-1a8c-4c2c-b2b6-aa6f8487ff6d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,28 +42,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/david/OneDrive/Documents/GitHub/Project-Plan-Bull---IS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "checkModuleUseCase-branch",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/david/OneDrive/Documents/GitHub/Project-Plan-Bull---IS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="main.java.infrastructure.repositories" />
