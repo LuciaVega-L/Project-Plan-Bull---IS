@@ -4,15 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Domain entity representing a Professor in the BULL system.
- *
- * Business rules:
- * - idTeaching must not be null or empty.
- * - Mail must contain '@'.
- * - A professor cannot be assigned to the same group twice.
- * - A professor can teach groups of different modalities.
- */
 public class BULL_Professor {
 
     private String idTeaching;

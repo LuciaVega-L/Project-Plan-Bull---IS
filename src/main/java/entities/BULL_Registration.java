@@ -1,15 +1,5 @@
 package main.java.entities;
 
-/**
- * Domain entity representing a Registration (Inscripción) in the BULL system.
- * Links one Student to one Group within one academic Semester.
- *
- * Business rules:
- * - idRegistration must not be null or empty.
- * - state must be one of: "ACTIVA", "CANCELADA", "FINALIZADA".
- * - A registration can only be cancelled if its current state is "ACTIVA".
- * - A registration can only be finalized if its current state is "ACTIVA".
- */
 public class BULL_Registration {
 
     public static final String STATE_ACTIVA     = "ACTIVA";

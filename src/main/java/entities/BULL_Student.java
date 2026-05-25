@@ -4,16 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Domain entity representing a Student in the BULL system.
- * Inherits conceptually from SIAU Vista (not modeled as Java class per requirements).
- *
- * Business rules:
- * - University code must not be null or empty.
- * - Mail must contain '@'.
- * - Semester must be >= 1.
- * - A student can only have one active registration at a time.
- */
 public class BULL_Student {
 
     private String universityCode;

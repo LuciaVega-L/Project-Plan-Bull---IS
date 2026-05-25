@@ -4,16 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Domain entity representing a Schedule (Horario) in the BULL system.
- * Stores time slots as a Map of day -> time range (e.g., "Lunes" -> "08:00-10:00").
- * One Schedule belongs to exactly one Group.
- *
- * Business rules:
- * - hourlay map must not be null or empty.
- * - A valid time slot key must not be blank.
- * - Cannot add a duplicate day entry.
- */
 public class BULL_Schedule {
 
     private Map<String, String> hourlay;

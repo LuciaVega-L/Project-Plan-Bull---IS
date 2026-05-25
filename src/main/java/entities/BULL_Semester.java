@@ -5,15 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Domain entity representing an Academic Semester (AcademicPeriod Bull) in the BULL system.
- *
- * Business rules:
- * - Period must be 1 or 2.
- * - startDate must be before endDate.
- * - A semester must belong to exactly one Course.
- * - Cannot add duplicate modalities (same mode type).
- */
+
 public class BULL_Semester {
 
     private int year;

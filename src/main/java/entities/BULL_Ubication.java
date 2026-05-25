@@ -1,13 +1,6 @@
 package main.java.entities;
 
-/**
- * Domain entity representing a physical Ubication (Classroom / Ubicación) in the BULL system.
- * Used exclusively by BULL_OnSitePresencial modality.
- *
- * Business rules:
- * - classroomNum must not be null or empty.
- * - ubication (building/campus) must not be null or empty.
- */
+
 public class BULL_Ubication {
 
     private String ubication;

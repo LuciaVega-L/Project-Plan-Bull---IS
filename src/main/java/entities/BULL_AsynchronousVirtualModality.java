@@ -1,14 +1,5 @@
 package main.java.entities;
 
-/**
- * Domain entity representing an Asynchronous Virtual (Plataforma - Estudiante Autónomo) Modality.
- * Subclass of BULL_Modality.
- *
- * Business rules:
- * - No physical location required.
- * - No fixed schedule required (students work autonomously).
- * - Groups under this modality must still respect the quota limit.
- */
 public class BULL_AsynchronousVirtualModality extends BULL_Modality {
 
     public BULL_AsynchronousVirtualModality() {

@@ -1,13 +1,5 @@
 package main.java.entities;
 
-/**
- * Domain entity representing a Synchronous Virtual (Virtual Sincrónica) Modality.
- * Subclass of BULL_Modality.
- *
- * Business rules:
- * - No physical location required.
- * - All groups under this modality must have a defined schedule (real-time sessions).
- */
 public class BULL_SynchronousVirtualModality extends BULL_Modality {
 
     public BULL_SynchronousVirtualModality() {

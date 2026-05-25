@@ -1,13 +1,6 @@
 package main.java.entities;
 
-/**
- * Domain entity representing an On-Site (Presencial) Modality.
- * Subclass of BULL_Modality.
- *
- * Business rules:
- * - On-site modality requires a physical Ubication (classroom).
- * - Ubication can be reassigned if the classroom changes.
- */
+
 public class BULL_OnSitePresencial extends BULL_Modality {
 
     private BULL_Ubication ubication;

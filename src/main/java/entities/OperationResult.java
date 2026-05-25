@@ -1,9 +1,5 @@
 package main.java.entities;
 
-/**
- * Utility class to return structured results from domain validations.
- * Used across all BULL entities for business rule enforcement.
- */
 public class OperationResult {
 
     private final boolean success;

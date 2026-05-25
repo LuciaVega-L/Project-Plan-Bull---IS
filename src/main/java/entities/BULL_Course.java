@@ -4,15 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Domain entity representing a Course (Curso) in the BULL system.
- * Course number is strictly between 1 and 4 inclusive.
- *
- * Business rules:
- * - courseNumber must be between 1 and 4.
- * - A course must have at least one semester to be considered active.
- * - Cannot add duplicate semesters (same year + period).
- */
 public class BULL_Course {
 
     private int idModule;

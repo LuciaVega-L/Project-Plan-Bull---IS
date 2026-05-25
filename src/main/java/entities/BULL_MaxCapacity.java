@@ -1,14 +1,5 @@
 package main.java.entities;
 
-/**
- * Domain entity representing the Maximum Capacity (Cupo Máximo) of a Group.
- * Tracks total allowed students and current enrollment count.
- *
- * Business rules:
- * - maxCapacity must be greater than 0.
- * - currentEnrollment cannot exceed maxCapacity.
- * - currentEnrollment cannot go below 0.
- */
 public class BULL_MaxCapacity {
 
     private int maxCapacity;
