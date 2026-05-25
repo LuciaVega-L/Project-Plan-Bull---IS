@@ -1,5 +1,7 @@
 package main.java.entities;
 
+import main.java.usecases.dto.OperationResult;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package main.java.entities;
+package main.java.usecases.dto;
 
 public class OperationResult {
 
