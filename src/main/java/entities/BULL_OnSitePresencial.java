@@ -1,6 +1,8 @@
 package main.java.entities;
 
 
+import main.java.usecases.dto.OperationResult;
+
 public class BULL_OnSitePresencial extends BULL_Modality {
 
     private BULL_Ubication ubication;

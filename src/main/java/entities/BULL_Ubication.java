@@ -1,6 +1,8 @@
 package main.java.entities;
 
 
+import main.java.usecases.dto.OperationResult;
+
 public class BULL_Ubication {
 
     private String ubication;

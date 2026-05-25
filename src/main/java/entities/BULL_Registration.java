@@ -1,5 +1,7 @@
 package main.java.entities;
 
+import main.java.usecases.dto.OperationResult;
+
 public class BULL_Registration {
 
     public static final String STATE_ACTIVA     = "ACTIVA";
