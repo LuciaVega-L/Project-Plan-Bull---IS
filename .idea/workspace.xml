@@ -5,8 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="902998b6-1a8c-4c2c-b2b6-aa6f8487ff6d" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_AsynchronousVirtualModality.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_AsynchronousVirtualModality.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_AsynchronousPlatformModality.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Project-Plan-Bull---IS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project-Plan-Bull---IS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_AsynchronousVirtualModality.java" beforeDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Group.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_MaxCapacity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_MaxCapacity.java" afterDir="false" />
@@ -19,8 +32,29 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_SynchronousVirtualModality.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_SynchronousVirtualModality.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/BULL_Ubication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/BULL_Ubication.java" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/OperationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/dto/OperationResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/prueba.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/prueba.txt" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryCourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryCourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryGroupRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryGroupRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryModalityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryModalityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryProfessorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryProfessorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryRegistrationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryScheduleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryStudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryStudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/dto/ModuleOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/dto/ModuleOptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/dto/OperationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/dto/OperationResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_CourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_GroupRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_GroupRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_ModalityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_ModalityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_ProfessorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_ProfessorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_RegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_RegistrationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_ScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_ScheduleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_StudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/CheckModuleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/CheckModuleUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/CourseRegistrationUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/CourseRegistrationUseCase.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +62,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="26" />
+    <option name="cachedIndexableFilesCount" value="41" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,6 +100,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
@@ -79,12 +121,72 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MainApp.executor": "Run",
+    "Maven.plan-bull [javafx:run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/david/OneDrive/Documents/GitHub/Project-Plan-Bull---IS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> Stashed changes
   }
 }</component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\david\OneDrive\Documents\GitHub\Project-Plan-Bull---IS" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="main.java.infrastructure.repositories" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="plan-bull [javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -103,6 +205,7 @@
       <updated>1779638958233</updated>
       <workItem from="1779668364740" duration="1649000" />
       <workItem from="1779675879985" duration="2639000" />
+      <workItem from="1780008855965" duration="5500000" />
     </task>
     <servers />
   </component>
