@@ -49,8 +49,8 @@ public class PlanBullApp {
         this.registrationRepository = new BULL_InMemoryRegistrationRepository();
 
 
-        this.checkModuleUseCase        = new CheckModuleUseCase(courseRepository, modalityRepository, groupRepository);
-        this.courseRegistrationUseCase = new CourseRegistrationUseCase(groupRepository, studentRepository, registrationRepository);
+        this.checkModuleUseCase        = new CheckModuleUseCase(studentRepository, courseRepository);
+        this.courseRegistrationUseCase = new CourseRegistrationUseCase(studentRepository, groupRepository, registrationRepository);
         this.cancelInscriptionUseCase  = new CancelInscriptionUseCase(registrationRepository, studentRepository, groupRepository);
         cargarDatosIniciales();
     }
@@ -99,7 +99,7 @@ public class PlanBullApp {
         professorRepository.save(new BULL_Professor(
                 "DOC002", "Ana Rodríguez", "ana.rodriguez@unillanos.edu.co"));
     }
-
+/*
     public OperationResult consultarModulos() {
         return checkModuleUseCase.consultarModulos();
     }
@@ -116,6 +116,7 @@ public class PlanBullApp {
         return courseRegistrationUseCase.inscribirModulo(idGrupo, universityCode);
     }
 
+   */
     public OperationResult cancelarInscripcion(String idRegistration, String universityCode) {
         return cancelInscriptionUseCase.cancelarInscripcion(idRegistration, universityCode);
     }
