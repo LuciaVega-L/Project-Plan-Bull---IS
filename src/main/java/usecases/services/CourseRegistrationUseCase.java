@@ -1,15 +1,15 @@
-package main.java.usecases.services;
+package usecases.services;
 
-import main.java.entities.BULL_Group;
-import main.java.entities.BULL_Modality;
-import main.java.entities.BULL_Registration;
-import main.java.entities.BULL_Semester;
-import main.java.entities.BULL_Student;
-import main.java.entities.BULL_Ubication;
-import main.java.usecases.dto.OperationResult;
-import main.java.usecases.ports.BULL_GroupRepository;
-import main.java.usecases.ports.BULL_RegistrationRepository;
-import main.java.usecases.ports.BULL_StudentRepository;
+import entities.BULL_Group;
+import entities.BULL_Modality;
+import entities.BULL_Registration;
+import entities.BULL_Semester;
+import entities.BULL_Student;
+import entities.BULL_Ubication;
+import usecases.dto.OperationResult;
+import usecases.ports.BULL_GroupRepository;
+import usecases.ports.BULL_RegistrationRepository;
+import usecases.ports.BULL_StudentRepository;
 
 import java.util.Optional;
 import java.util.UUID;

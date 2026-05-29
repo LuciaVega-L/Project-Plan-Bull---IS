@@ -1,6 +1,6 @@
-package main.java.usecases.ports;
+package usecases.ports;
 
-import main.java.entities.BULL_Registration;
+import entities.BULL_Registration;
 import java.util.List;
 import java.util.Optional;
 

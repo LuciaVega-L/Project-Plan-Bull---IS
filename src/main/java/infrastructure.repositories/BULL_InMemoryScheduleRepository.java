@@ -1,7 +1,7 @@
-package main.java.infrastructure.repositories;
+package infrastructure.repositories;
 
-import main.java.entities.BULL_Schedule;
-import main.java.usecases.ports.BULL_ScheduleRepository;
+import entities.BULL_Schedule;
+import usecases.ports.BULL_ScheduleRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,14 +1,14 @@
-package main.java.usecases.services;
+package usecases.services;
 
-import main.java.entities.BULL_Course;
-import main.java.entities.BULL_Group;
-import main.java.entities.BULL_Modality;
-import main.java.entities.BULL_OnSitePresencial;
-import main.java.usecases.dto.ModuleOptionDTO;
-import main.java.usecases.dto.OperationResult;
-import main.java.usecases.ports.BULL_CourseRepository;
-import main.java.usecases.ports.BULL_GroupRepository;
-import main.java.usecases.ports.BULL_ModalityRepository;
+import entities.BULL_Course;
+import entities.BULL_Group;
+import entities.BULL_Modality;
+import entities.BULL_OnSitePresencial;
+import usecases.dto.ModuleOptionDTO;
+import usecases.dto.OperationResult;
+import usecases.ports.BULL_CourseRepository;
+import usecases.ports.BULL_GroupRepository;
+import usecases.ports.BULL_ModalityRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,7 +169,7 @@ public class CheckModuleUseCase {
 
         for (int c = 0; c < cursos.size(); c++) {
             BULL_Course curso = cursos.get(c);
-            List<main.java.entities.BULL_Semester> semestres = curso.getSemesters();
+            List<entities.BULL_Semester> semestres = curso.getSemesters();
             for (int s = 0; s < semestres.size(); s++) {
                 if (semestres.get(s).equals(modalidad.getSemester())) {
                     return curso;

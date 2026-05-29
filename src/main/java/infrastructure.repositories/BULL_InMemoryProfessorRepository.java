@@ -1,7 +1,7 @@
-package main.java.infrastructure.repositories;
+package infrastructure.repositories;
 
-import main.java.entities.BULL_Professor;
-import main.java.usecases.ports.BULL_ProfessorRepository;
+import entities.BULL_Professor;
+import usecases.ports.BULL_ProfessorRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;

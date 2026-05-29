@@ -1,4 +1,4 @@
-package main.java.usecases.dto;
+package usecases.dto;
 
 public class OperationResult {
 

@@ -1,7 +1,7 @@
-package main.java.infrastructure.repositories;
+package infrastructure.repositories;
 
-import main.java.entities.BULL_Registration;
-import main.java.usecases.ports.BULL_RegistrationRepository;
+import entities.BULL_Registration;
+import usecases.ports.BULL_RegistrationRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;

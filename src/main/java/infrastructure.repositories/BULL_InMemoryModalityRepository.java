@@ -1,7 +1,6 @@
-package main.java.infrastructure.repositories;
-
-import main.java.entities.BULL_Modality;
-import main.java.usecases.ports.BULL_ModalityRepository;
+package infrastructure.repositories;
+import entities.BULL_Modality;
+import usecases.ports.BULL_ModalityRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
