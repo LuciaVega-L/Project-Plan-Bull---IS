@@ -39,6 +39,6 @@ public abstract class BULL_Modality {
 
     @Override
     public String toString() {
-        return "Modality{mode='" + getMode() + "', groups=" + groups.size() + "}"; // ✅ usa el método
+        return "Modality{mode='" + getMode() + "', groups=" + groups.size() + "}";
     }
 }
