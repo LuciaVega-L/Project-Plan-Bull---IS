@@ -1,6 +1,6 @@
 package usecases.services;
 
-import entities.*;
+
 import infrastructure.repositories.BULL_InMemoryStudentRepository;
 import infrastructure.repositories.BULL_InMemoryProfessorRepository;
 import infrastructure.repositories.BULL_InMemoryCourseRepository;
@@ -12,6 +12,13 @@ import usecases.dto.ModuleOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
 import usecases.services.*;
+import usecases.dto.*;
+import entities.BULL_Course;
+import entities.BULL_Student;
+import entities.BULL_Professor;
+import entities.BULL_Schedule;
+import entities.BULL_Registration;
+import entities.BULL_Group;
 
 import java.util.Date;
 import java.util.List;

@@ -82,4 +82,7 @@ public class BULL_Group {
     public String toString() {
         return "Group{idGroup=" + idGroup + ", inscritos=" + registrations.size() + "}";
     }
+
+    public BULL_Modality getModality() {
+    }
 }
