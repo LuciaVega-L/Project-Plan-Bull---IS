@@ -67,8 +67,16 @@ public class BULL_Group {
 
     public void setProfessor(BULL_Professor professor) { this.professor = professor; }
     public void setSchedule(BULL_Schedule schedule) { this.schedule = schedule; }
-    public void setUbication(BULL_Ubication ubication) { this.ubication = ubication; }
-    public void setMaxCapacity(BULL_MaxCapacity maxCapacity) { this.maxCapacity = maxCapacity; }
+    public OperationResult setUbication(BULL_Ubication ubication, BULL_Modality modality) {
+        if (modality instanceof BULL_OnSitePresencial && ubication == null) {
+            return OperationResult.fail("Un grupo presencial debe tener ubicación.");
+        }
+        if (!(modality instanceof BULL_OnSitePresencial) && ubication != null) {
+            return OperationResult.fail("Solo grupos presenciales pueden tener ubicación.");
+        }
+        this.ubication = ubication;
+        return OperationResult.ok("Ubicación asignada correctamente.");
+    }    public void setMaxCapacity(BULL_MaxCapacity maxCapacity) { this.maxCapacity = maxCapacity; }
 
     @Override
     public String toString() {
