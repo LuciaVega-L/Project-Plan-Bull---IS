@@ -49,8 +49,8 @@ public class PlanBullApp {
         this.registrationRepository = new BULL_InMemoryRegistrationRepository();
 
 
-        this.checkModuleUseCase        = new CheckModuleUseCase(studentRepository, courseRepository);
-        this.courseRegistrationUseCase = new CourseRegistrationUseCase(studentRepository, groupRepository, registrationRepository);
+        this.checkModuleUseCase        = new CheckModuleUseCase(studentRepository, courseRepository, modalityRepository, groupRepository);
+        this.courseRegistrationUseCase = new CourseRegistrationUseCase(groupRepository, studentRepository, registrationRepository, modalityRepository);
         this.cancelInscriptionUseCase  = new CancelInscriptionUseCase(registrationRepository, studentRepository, groupRepository);
         cargarDatosIniciales();
     }
