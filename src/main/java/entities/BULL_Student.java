@@ -44,19 +44,6 @@ public class BULL_Student {
         this.registrations = new ArrayList<>();
     }
 
-    public void addRegistration(BULL_Registration registration) {
-        registrations.add(registration);
-    }
-
-    public boolean tieneInscripcionActiva() {
-        for (int i = 0; i < registrations.size(); i++) {
-            if (registrations.get(i).estaActiva()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public String getUniversityCode() { return universityCode; }
     public String getName() { return name; }
     public String getSurnames() { return surnames; }
@@ -76,6 +63,18 @@ public class BULL_Student {
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public void setSpecialCondition(boolean specialCondition) { this.specialCondition = specialCondition; }
 
+    public void addRegistration(BULL_Registration registration) {
+        registrations.add(registration);
+    }
+
+    public boolean tieneInscripcionActiva() {
+        for (int i = 0; i < registrations.size(); i++) {
+            if (registrations.get(i).estaActiva()) {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public String toString() {
         return "Student{code='" + universityCode + "', name='" + name + " " + surnames + "'}";

@@ -11,6 +11,7 @@ public class BULL_Schedule {
     public BULL_Schedule() {
         this.hourlay = new HashMap<>();
     }
+    public Map<String, String> getHourlay() { return Collections.unmodifiableMap(hourlay); }
 
     public void addTimeSlot(String day, String timeRange) {
         hourlay.put(day, timeRange);
@@ -23,8 +24,6 @@ public class BULL_Schedule {
     public boolean tieneHorario() {
         return !hourlay.isEmpty();
     }
-
-    public Map<String, String> getHourlay() { return Collections.unmodifiableMap(hourlay); }
 
     @Override
     public String toString() {

@@ -14,6 +14,7 @@ public abstract class BULL_Modality {
     }
 
     public abstract String getMode(); // cada subclase define su tipo
+    public List<BULL_Group> getGroups() { return Collections.unmodifiableList(groups); }
 
     public OperationResult addGroup(BULL_Group group) {
         if (group == null) {
@@ -35,7 +36,6 @@ public abstract class BULL_Modality {
         return false;
     }
 
-    public List<BULL_Group> getGroups() { return Collections.unmodifiableList(groups); }
 
     @Override
     public String toString() {
