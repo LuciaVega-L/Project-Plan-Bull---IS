@@ -22,6 +22,25 @@ public class BULL_Group {
         this.idGroup = idGroup;
         this.registrations = new ArrayList<>();
     }
+    public int getIdGroup() { return idGroup; }
+    public BULL_Professor getProfessor() { return professor; }
+    public BULL_Schedule getSchedule() { return schedule; }
+    public BULL_Ubication getUbication() { return ubication; }
+    public BULL_MaxCapacity getMaxCapacity() { return maxCapacity; }
+    public List<BULL_Registration> getRegistrations() { return Collections.unmodifiableList(registrations); }
+
+    public void setProfessor(BULL_Professor professor) { this.professor = professor; }
+    public void setSchedule(BULL_Schedule schedule) { this.schedule = schedule; }
+    public OperationResult setUbication(BULL_Ubication ubication, BULL_Modality modality) {
+        if (modality instanceof BULL_OnSitePresencial && ubication == null) {
+            return OperationResult.fail("Un grupo presencial debe tener ubicación.");
+        }
+        if (!(modality instanceof BULL_OnSitePresencial) && ubication != null) {
+            return OperationResult.fail("Solo grupos presenciales pueden tener ubicación.");
+        }
+        this.ubication = ubication;
+        return OperationResult.ok("Ubicación asignada correctamente.");
+    }    public void setMaxCapacity(BULL_MaxCapacity maxCapacity) { this.maxCapacity = maxCapacity; }
 
     public OperationResult addRegistration(BULL_Registration registration) {
         if (registration == null) {
@@ -58,31 +77,8 @@ public class BULL_Group {
         return maxCapacity != null && maxCapacity.tieneCupoDisponible();
     }
 
-    public int getIdGroup() { return idGroup; }
-    public BULL_Professor getProfessor() { return professor; }
-    public BULL_Schedule getSchedule() { return schedule; }
-    public BULL_Ubication getUbication() { return ubication; }
-    public BULL_MaxCapacity getMaxCapacity() { return maxCapacity; }
-    public List<BULL_Registration> getRegistrations() { return Collections.unmodifiableList(registrations); }
-
-    public void setProfessor(BULL_Professor professor) { this.professor = professor; }
-    public void setSchedule(BULL_Schedule schedule) { this.schedule = schedule; }
-    public OperationResult setUbication(BULL_Ubication ubication, BULL_Modality modality) {
-        if (modality instanceof BULL_OnSitePresencial && ubication == null) {
-            return OperationResult.fail("Un grupo presencial debe tener ubicación.");
-        }
-        if (!(modality instanceof BULL_OnSitePresencial) && ubication != null) {
-            return OperationResult.fail("Solo grupos presenciales pueden tener ubicación.");
-        }
-        this.ubication = ubication;
-        return OperationResult.ok("Ubicación asignada correctamente.");
-    }    public void setMaxCapacity(BULL_MaxCapacity maxCapacity) { this.maxCapacity = maxCapacity; }
-
     @Override
     public String toString() {
         return "Group{idGroup=" + idGroup + ", inscritos=" + registrations.size() + "}";
-    }
-
-    public BULL_Modality getModality() {
     }
 }
