@@ -38,6 +38,7 @@ public class PlanBullApp {
     private final CheckModuleUseCase         checkModuleUseCase;
     private final CourseRegistrationUseCase  courseRegistrationUseCase;
     private final CancelInscriptionUseCase   cancelInscriptionUseCase;
+    private final ManageModuleUseCase manageModuleUseCase;
 
     public PlanBullApp() {
         this.studentRepository      = new BULL_InMemoryStudentRepository();
@@ -52,6 +53,7 @@ public class PlanBullApp {
         this.checkModuleUseCase        = new CheckModuleUseCase(studentRepository, courseRepository);
         this.courseRegistrationUseCase = new CourseRegistrationUseCase(studentRepository, groupRepository, registrationRepository);
         this.cancelInscriptionUseCase  = new CancelInscriptionUseCase(registrationRepository, studentRepository, groupRepository);
+        this.manageModuleUseCase = new ManageModuleUseCase(courseRepository);
         cargarDatosIniciales();
     }
 
@@ -64,7 +66,7 @@ public class PlanBullApp {
                        BULL_RegistrationRepository registrationRepository,
                        CheckModuleUseCase checkModuleUseCase,
                        CourseRegistrationUseCase courseRegistrationUseCase,
-                       CancelInscriptionUseCase cancelInscriptionUseCase) {
+                       CancelInscriptionUseCase cancelInscriptionUseCase, ManageModuleUseCase manageModuleUseCase) {
         this.studentRepository      = studentRepository;
         this.professorRepository    = professorRepository;
         this.courseRepository       = courseRepository;
@@ -75,6 +77,7 @@ public class PlanBullApp {
         this.checkModuleUseCase        = checkModuleUseCase;
         this.courseRegistrationUseCase = courseRegistrationUseCase;
         this.cancelInscriptionUseCase  = cancelInscriptionUseCase;
+        this.manageModuleUseCase = manageModuleUseCase;
 
     }
 
@@ -121,6 +124,8 @@ public class PlanBullApp {
         return cancelInscriptionUseCase.cancelarInscripcion(idRegistration, universityCode);
     }
 
+    public OperationResult Ma
+
     public List<BULL_Student> getEstudiantes() {
         return studentRepository.findAll();
     }
@@ -132,5 +137,7 @@ public class PlanBullApp {
     public List<BULL_Registration> getInscripciones() {
         return registrationRepository.findAll();
     }
+
+
 
 }
