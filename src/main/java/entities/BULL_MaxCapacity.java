@@ -12,6 +12,12 @@ public class BULL_MaxCapacity {
         this.maxCapacity = maxCapacity;
         this.currentEnrollment = 0;
     }
+    public int getCuposRestantes() {
+        return maxCapacity - currentEnrollment;
+    }
+
+    public int getMaxCapacity() { return maxCapacity; }
+    public int getCurrentEnrollment() { return currentEnrollment; }
 
     public void incrementEnrollment() {
         currentEnrollment++;
@@ -25,12 +31,6 @@ public class BULL_MaxCapacity {
         return currentEnrollment < maxCapacity;
     }
 
-    public int getCuposRestantes() {
-        return maxCapacity - currentEnrollment;
-    }
-
-    public int getMaxCapacity() { return maxCapacity; }
-    public int getCurrentEnrollment() { return currentEnrollment; }
 
     @Override
     public String toString() {

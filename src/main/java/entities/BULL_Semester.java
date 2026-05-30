@@ -32,6 +32,11 @@ public class BULL_Semester {
         this.endDate = endDate;
         this.modalities = new ArrayList<>();
     }
+    public int getYear() { return year; }
+    public int getPeriod() { return period; }
+    public Date getStartDate() { return startDate; }
+    public Date getEndDate() { return endDate; }
+    public List<BULL_Modality> getModalities() { return Collections.unmodifiableList(modalities); }
 
     public void addModality(BULL_Modality modality) {
         modalities.add(modality);
@@ -41,12 +46,6 @@ public class BULL_Semester {
         Date now = new Date();
         return now.after(startDate) && now.before(endDate);
     }
-
-    public int getYear() { return year; }
-    public int getPeriod() { return period; }
-    public Date getStartDate() { return startDate; }
-    public Date getEndDate() { return endDate; }
-    public List<BULL_Modality> getModalities() { return Collections.unmodifiableList(modalities); }
 
     @Override
     public String toString() {

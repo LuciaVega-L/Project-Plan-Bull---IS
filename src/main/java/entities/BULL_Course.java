@@ -21,13 +21,14 @@ public class BULL_Course {
         this.semesters = new ArrayList<>();
     }
 
-    public void addSemester(BULL_Semester semester) {
-        semesters.add(semester);
-    }
 
     public int getIdModule() { return idModule; }
     public int getCourseNumber() { return courseNumber; }
     public List<BULL_Semester> getSemesters() { return Collections.unmodifiableList(semesters); }
+
+    public void addSemester(BULL_Semester semester) {
+        semesters.add(semester);
+    }
 
     @Override
     public String toString() {
