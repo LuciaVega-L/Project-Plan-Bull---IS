@@ -1,56 +1,184 @@
 package usecases.services;
 
-import entities.*;
+import entities.BULL_Course;
+import entities.BULL_Group;
+import entities.BULL_Modality;
+import entities.BULL_OnSitePresencial;
+import entities.BULL_Student;
 import usecases.dto.ModuleOptionDTO;
-import usecases.ports.*;
-import java.util.*;
+import usecases.dto.OperationResult;
+import usecases.ports.BULL_CourseRepository;
+import usecases.ports.BULL_GroupRepository;
+import usecases.ports.BULL_ModalityRepository;
+import usecases.ports.BULL_StudentRegistrationService;
+import usecases.ports.BULL_StudentRepository;
 
-public class CheckModuleUseCase {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-    private final BULL_StudentRepository studentRepository;
-    private final BULL_CourseRepository  courseRepository;
+public class CheckModuleUseCase implements BULL_StudentRegistrationService.CheckModuleInputPort {
+
+    private final BULL_StudentRepository  studentRepository;
+    private final BULL_CourseRepository   courseRepository;
+    private final BULL_ModalityRepository modalityRepository;
+    private final BULL_GroupRepository    groupRepository;
 
     public CheckModuleUseCase(BULL_StudentRepository studentRepository,
-                              BULL_CourseRepository courseRepository) {
-        this.studentRepository = studentRepository;
-        this.courseRepository = courseRepository;
+                              BULL_CourseRepository courseRepository,
+                              BULL_ModalityRepository modalityRepository,
+                              BULL_GroupRepository groupRepository) {
+        this.studentRepository  = studentRepository;
+        this.courseRepository   = courseRepository;
+        this.modalityRepository = modalityRepository;
+        this.groupRepository    = groupRepository;
     }
 
-    public List<ModuleOptionDTO> ejecutar(String universityCode) {
-        // 1. Obtener al estudiante para determinar su nivel actual
-        BULL_Student student = studentRepository.findByUniversityCode(universityCode)
-                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+    // -------------------------------------------------------------------------
+    // Puerto de entrada (Clean Architecture)
+    // -------------------------------------------------------------------------
+    @Override
+    public List<ModuleOptionDTO> consultarPorEstudiante(String universityCode) {
+        return consultarModulosDisponibles(universityCode);
+    }
 
-        // 2. Lógica de Negocio: Determinar nivel (si no tiene registros, es nivel 1)
-        int nextModuleNumber = student.getRegistrations().size() + 1;
+    // -------------------------------------------------------------------------
+    // Caso de uso principal: consultar módulos disponibles para un estudiante
+    // Filtra por nivel del estudiante (solo ve el siguiente módulo que le toca)
+    // Retorna las opciones de grupo para que el estudiante elija
+    // -------------------------------------------------------------------------
+    public List<ModuleOptionDTO> consultarModulosDisponibles(String universityCode) {
 
-        // 3. Filtrar cursos que coincidan con ese nivel
         List<ModuleOptionDTO> opciones = new ArrayList<>();
-        courseRepository.findAll().stream()
-                .filter(c -> c.getCourseNumber() == nextModuleNumber)
-                .forEach(curso -> {
-                    for (BULL_Semester sem : curso.getSemesters()) {
-                        for (BULL_Modality mod : sem.getModalities()) {
-                            for (BULL_Group grupo : mod.getGroups()) {
-                                if (grupo.tieneCupoDisponible()) {
-                                    opciones.add(mapToDTO(curso, mod, grupo));
-                                }
-                            }
-                        }
-                    }
-                });
+
+        // 1. Buscar estudiante
+        Optional<BULL_Student> estudianteOpt = studentRepository.findByUniversityCode(universityCode);
+        if (!estudianteOpt.isPresent()) {
+            return opciones;
+        }
+        BULL_Student estudiante = estudianteOpt.get();
+
+        // 2. Si ya tiene inscripción activa no se le muestran opciones
+        if (estudiante.tieneInscripcionActiva()) {
+            return opciones;
+        }
+
+        int courseNumberRequerido = determinarCourseNumber(estudiante.getSemester());
+
+        // 3. Buscar el curso que corresponde al nivel del estudiante
+        BULL_Course cursoDelEstudiante = buscarCursoPorCourseNumber(courseNumberRequerido);
+        if (cursoDelEstudiante == null) {
+            return opciones;
+        }
+
+        // 4. Recopilar todos los grupos con cupo de todas las modalidades
+        List<BULL_Group>    todosGrupos = groupRepository.findAll();
+        List<BULL_Modality> modalidades = modalityRepository.findAll();
+
+        for (BULL_Group grupo : todosGrupos) {
+
+            if (!tieneCupoYConfiguracion(grupo)) {
+                continue;
+            }
+
+            BULL_Modality modalidad = buscarModalidadDeGrupo(modalidades, grupo);
+            if (modalidad == null) {
+                continue;
+            }
+
+            boolean esPresencial = modalidad instanceof BULL_OnSitePresencial;
+            String  ubicacion    = null;
+            String  numAula      = null;
+
+            if (esPresencial && grupo.getUbication() != null) {
+                ubicacion = grupo.getUbication().getBuilding();
+                numAula   = grupo.getUbication().getClassroomNum();
+            }
+
+            ModuleOptionDTO opcion = new ModuleOptionDTO(
+                    cursoDelEstudiante.getIdModule(),
+                    cursoDelEstudiante.getCourseNumber(),
+                    modalidad.getMode(),
+                    grupo.getIdGroup(),
+                    grupo.getMaxCapacity().getCuposRestantes(),
+                    grupo.getSchedule().getHourlay().toString(),
+                    esPresencial,
+                    ubicacion,
+                    numAula
+            );
+
+            opciones.add(opcion);
+        }
+
         return opciones;
     }
 
-    private ModuleOptionDTO mapToDTO(BULL_Course c, BULL_Modality m, BULL_Group g) {
-        boolean esPresencial = m instanceof BULL_OnSitePresencial;
-        return new ModuleOptionDTO(
-                c.getIdModule(), c.getCourseNumber(), m.getMode(), g.getIdGroup(),
-                g.getMaxCapacity() != null ? g.getMaxCapacity().getCuposRestantes() : 0,
-                g.getSchedule() != null ? g.getSchedule().getHourlay().toString() : "Sin horario",
-                esPresencial,
-                (esPresencial && g.getUbication() != null) ? g.getUbication().getBuilding() : null,
-                (esPresencial && g.getUbication() != null) ? g.getUbication().getClassroomNum() : null
+    // -------------------------------------------------------------------------
+    // Verificación rápida: ¿hay algo disponible? (para mensajes de error)
+    // -------------------------------------------------------------------------
+    public OperationResult verificarDisponibilidad(String universityCode) {
+
+        Optional<BULL_Student> estudianteOpt = studentRepository.findByUniversityCode(universityCode);
+        if (!estudianteOpt.isPresent()) {
+            return OperationResult.fail("No se encontró el estudiante con código " + universityCode + ".");
+        }
+
+        BULL_Student estudiante = estudianteOpt.get();
+
+        if (estudiante.tieneInscripcionActiva()) {
+            return OperationResult.fail(
+                    "El estudiante " + estudiante.getName() + " " + estudiante.getSurnames() +
+                            " ya tiene una inscripción activa."
+            );
+        }
+
+        List<ModuleOptionDTO> opciones = consultarModulosDisponibles(universityCode);
+        if (opciones.isEmpty()) {
+            return OperationResult.fail("No hay módulos disponibles para el estudiante " + universityCode + ".");
+        }
+
+        return OperationResult.ok(
+                "Hay " + opciones.size() + " opción(es) disponibles para " +
+                        estudiante.getName() + " " + estudiante.getSurnames() + "."
         );
+    }
+
+    // -------------------------------------------------------------------------
+    // Helpers privados
+    // -------------------------------------------------------------------------
+
+    private int determinarCourseNumber(int semestreEstudiante) {
+        if (semestreEstudiante <= 2) return 1;
+        if (semestreEstudiante <= 4) return 2;
+        if (semestreEstudiante <= 6) return 3;
+        return 4;
+    }
+
+    private BULL_Course buscarCursoPorCourseNumber(int courseNumber) {
+        List<BULL_Course> cursos = courseRepository.findAll();
+        for (BULL_Course curso : cursos) {
+            if (curso.getCourseNumber() == courseNumber) {
+                return curso;
+            }
+        }
+        return null;
+    }
+
+    private boolean tieneCupoYConfiguracion(BULL_Group grupo) {
+        return grupo.tieneCupoDisponible()
+                && grupo.getSchedule()    != null
+                && grupo.getMaxCapacity() != null
+                && grupo.getProfessor()   != null;
+    }
+
+    private BULL_Modality buscarModalidadDeGrupo(List<BULL_Modality> modalidades, BULL_Group grupo) {
+        for (BULL_Modality modalidad : modalidades) {
+            for (BULL_Group g : modalidad.getGroups()) {
+                if (g.getIdGroup() == grupo.getIdGroup()) {
+                    return modalidad;
+                }
+            }
+        }
+        return null;
     }
 }
