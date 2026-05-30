@@ -1,189 +1,150 @@
 package usecases.services;
 
 import entities.BULL_Group;
-import entities.BULL_Modality;
 import entities.BULL_Registration;
-import entities.BULL_Semester;
 import entities.BULL_Student;
-import entities.BULL_Ubication;
+import entities.BULL_OnSitePresencial;
+import entities.BULL_Modality;
+import usecases.dto.ModuleOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.BULL_GroupRepository;
+import usecases.ports.BULL_ModalityRepository;
 import usecases.ports.BULL_RegistrationRepository;
+import usecases.ports.BULL_StudentRegistrationService;
 import usecases.ports.BULL_StudentRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CourseRegistrationUseCase {
+public class CourseRegistrationUseCase implements BULL_StudentRegistrationService.CourseRegistrationInputPort {
 
-    private final BULL_GroupRepository groupRepository;
-    private final BULL_StudentRepository studentRepository;
+    private final BULL_GroupRepository        groupRepository;
+    private final BULL_StudentRepository      studentRepository;
     private final BULL_RegistrationRepository registrationRepository;
+    private final BULL_ModalityRepository     modalityRepository;
 
     public CourseRegistrationUseCase(BULL_GroupRepository groupRepository,
                                      BULL_StudentRepository studentRepository,
-                                     BULL_RegistrationRepository registrationRepository) {
-        this.groupRepository = groupRepository;
-        this.studentRepository = studentRepository;
+                                     BULL_RegistrationRepository registrationRepository,
+                                     BULL_ModalityRepository modalityRepository) {
+        this.groupRepository        = groupRepository;
+        this.studentRepository      = studentRepository;
         this.registrationRepository = registrationRepository;
+        this.modalityRepository     = modalityRepository;
     }
 
-    public OperationResult inscribirModulo(int idGrupo, String universityCode) {
+    // -------------------------------------------------------------------------
+    // Puerto de entrada (Clean Architecture)
+    // -------------------------------------------------------------------------
+    @Override
+    public OperationResult registrar(String universityCode, ModuleOptionDTO opcionElegida) {
+        return inscribirModulo(universityCode, opcionElegida);
+    }
 
+    // -------------------------------------------------------------------------
+    // Caso de uso principal: registrar la elección que el estudiante ya hizo
+    // Recibe el DTO que CheckModuleUseCase le presentó — NO re-consulta nada.
+    // -------------------------------------------------------------------------
+    public OperationResult inscribirModulo(String universityCode, ModuleOptionDTO opcionElegida) {
+
+        // --- 1. Validar entradas básicas ---
         if (universityCode == null || universityCode.trim().isEmpty()) {
             return OperationResult.fail("El código universitario no puede estar vacío.");
         }
-        if (idGrupo <= 0) {
-            return OperationResult.fail("El ID del grupo debe ser mayor a 0.");
+        if (opcionElegida == null) {
+            return OperationResult.fail("Debe seleccionar una opción de módulo.");
         }
 
+        // --- 2. Verificar que el estudiante sigue existiendo y sin inscripción activa
+        //        (pudo haber cambiado entre la consulta y el registro) ---
         Optional<BULL_Student> estudianteOpt = studentRepository.findByUniversityCode(universityCode);
         if (!estudianteOpt.isPresent()) {
             return OperationResult.fail("No se encontró el estudiante con código " + universityCode + ".");
         }
-        BULL_Student estudiante = estudianteOpt.get();
+        BULL_Student estudiante = estudianteOpt.get();//clean??
 
-        OperationResult validacionEstudiante = validarEstudiante(estudiante);
-        if (!validacionEstudiante.isSuccess()) {
-            return validacionEstudiante;
+        if (estudiante.tieneInscripcionActiva()) {
+            return OperationResult.fail(
+                    "El estudiante " + estudiante.getName() + " " + estudiante.getSurnames() +
+                            " ya tiene una inscripción activa. Debe cancelarla antes de inscribirse en otro módulo."
+            );
         }
 
-        Optional<BULL_Group> grupoOpt = groupRepository.findByIdGroup(idGrupo);
+        // --- 3. Verificar que el grupo elegido sigue disponible
+        //        (el cupo pudo llenarse entre consulta y registro) ---
+        Optional<BULL_Group> grupoOpt = groupRepository.findByIdGroup(opcionElegida.getIdGrupo());
         if (!grupoOpt.isPresent()) {
             return OperationResult.fail(
-                    "No se encontró el grupo con id " + idGrupo + ". " +
-                            "Por favor consulte nuevamente los módulos disponibles."
+                    "El grupo " + opcionElegida.getIdGrupo() +
+                            " ya no está disponible. Por favor consulte nuevamente."
             );
         }
         BULL_Group grupo = grupoOpt.get();
 
-        OperationResult validacionGrupo = validarGrupo(grupo);
-        if (!validacionGrupo.isSuccess()) {
-            return validacionGrupo;
-        }
-
-        OperationResult validacionUbicacion = validarUbicacionSiPresencial(grupo);
-        if (!validacionUbicacion.isSuccess()) {
-            return validacionUbicacion;
-        }
-
-        BULL_Semester semestre = obtenerSemestreDelGrupo(grupo);
-        if (semestre == null) {
+        if (!grupo.tieneCupoDisponible()) {
             return OperationResult.fail(
-                    "El grupo " + idGrupo + " no tiene semestre asignado. " +
-                            "Contacte al administrador."
+                    "El grupo " + grupo.getIdGroup() +
+                            " se llenó mientras realizaba la selección. Por favor consulte nuevamente."
             );
         }
 
-        OperationResult vigencia = semestre.validarVigencia();
-        if (!vigencia.isSuccess()) {
-            return OperationResult.fail("El semestre del grupo no está vigente: " + vigencia.getMessage());
+        // --- 4. Validar ubicación si la opción elegida era presencial ---
+        if (opcionElegida.isEsPresencial()) {
+            OperationResult validacionUbicacion = validarUbicacionPresencial(grupo);
+            if (!validacionUbicacion.isSuccess()) return validacionUbicacion;
         }
 
-        String idRegistration = generarIdRegistration(universityCode, idGrupo);
-
-        BULL_Registration registration;
+        // --- 5. Crear y persistir la inscripción ---
+        BULL_Registration registration;//clean????????????
         try {
-            registration = new BULL_Registration(idRegistration, estudiante, semestre, grupo);
+            registration = new BULL_Registration(estudiante, grupo); // solo 2 params ahora
         } catch (IllegalArgumentException e) {
             return OperationResult.fail("Error al crear la inscripción: " + e.getMessage());
         }
 
-        OperationResult validacionNuevaInscripcion = grupo.validarNuevaInscripcion(registration);
-        if (!validacionNuevaInscripcion.isSuccess()) {
-            return OperationResult.fail("El grupo rechazó la inscripción: " + validacionNuevaInscripcion.getMessage());
+        OperationResult addResult = grupo.addRegistration(registration);
+        if (!addResult.isSuccess()) {
+            return OperationResult.fail("El grupo rechazó la inscripción: " + addResult.getMessage());
         }
 
-        try {
-            grupo.addRegistration(registration);
-        } catch (IllegalStateException e) {
-            return OperationResult.fail("Error al registrar la inscripción en el grupo: " + e.getMessage());
-        }
+        estudiante.addRegistration(registration);
 
-        try {
-            estudiante.addRegistration(registration);
-        } catch (IllegalStateException e) {
-            return OperationResult.fail("Error al registrar la inscripción en el estudiante: " + e.getMessage());
-        }
-
+        // --- 6. Persistir en repositorios ---
         registrationRepository.save(registration);
         studentRepository.save(estudiante);
         groupRepository.save(grupo);
 
         return OperationResult.ok(
                 "Inscripción exitosa. " +
-                        "ID: " + idRegistration + ". " +
                         "Estudiante: " + estudiante.getName() + " " + estudiante.getSurnames() + ". " +
+                        "Módulo: " + opcionElegida.getCourseNumber() + ". " +
                         "Grupo: " + grupo.getIdGroup() + ". " +
-                        "Semestre: " + semestre.getYear() + "-" + semestre.getPeriod() + ". " +
-                        "Modalidad: " + grupo.getModality().getMode() + ". " +
-                        construirMensajeUbicacion(grupo) +
+                        "Modalidad: " + opcionElegida.getModalidad() + ". " +
+                        construirMensajeUbicacion(opcionElegida) +
                         "Estado: " + registration.getState() + "."
         );
     }
 
-    private OperationResult validarEstudiante(BULL_Student estudiante) {
-        if (estudiante.tieneInscripcionActiva()) {
+    // -------------------------------------------------------------------------
+    // Helpers privados
+    // -------------------------------------------------------------------------
+
+    private OperationResult validarUbicacionPresencial(BULL_Group grupo) {
+        if (grupo.getUbication() == null) {
             return OperationResult.fail(
-                    "El estudiante " + estudiante.getName() + " " + estudiante.getSurnames() +
-                            " ya tiene una inscripción activa. " +
-                            "Debe cancelarla antes de inscribirse en otro módulo."
+                    "El grupo " + grupo.getIdGroup() +
+                            " es Presencial pero no tiene aula asignada. Contacte al administrador."
             );
         }
-        return OperationResult.ok("Estudiante apto para inscripción.");
+        return OperationResult.ok("Ubicación válida.");
     }
 
-    private OperationResult validarGrupo(BULL_Group grupo) {
-        OperationResult configResult = grupo.validarConfiguracionCompleta();
-        if (!configResult.isSuccess()) {
-            return configResult;
-        }
-        OperationResult cupoResult = grupo.validarCupoDisponible();
-        if (!cupoResult.isSuccess()) {
-            return OperationResult.fail(
-                    "El grupo " + grupo.getIdGroup() + " no tiene cupo disponible. " +
-                            cupoResult.getMessage()
-            );
-        }
-        return OperationResult.ok("Grupo válido para inscripción.");
-    }
 
-    private OperationResult validarUbicacionSiPresencial(BULL_Group grupo) {
-        BULL_Modality modalidad = grupo.getModality();
-        boolean esPresencial = modalidad.getMode().toLowerCase().contains("presencial");
-
-        if (!esPresencial) {
-            return OperationResult.ok("Modalidad virtual, ubicación no requerida.");
+    private String construirMensajeUbicacion(ModuleOptionDTO opcion) {
+        if (opcion.isEsPresencial() && opcion.getUbicacion() != null) {
+            return "Aula: " + opcion.getNumAula() + " en " + opcion.getUbicacion() + ". ";
         }
-
-        BULL_Ubication ubicacion = grupo.getUbication();
-        if (ubicacion == null) {
-            return OperationResult.fail(
-                    "El grupo " + grupo.getIdGroup() + " es Presencial pero no tiene " +
-                            "aula asignada. Contacte al administrador."
-            );
-        }
-        return ubicacion.validarDisponibilidadAula();
-    }
-
-    private BULL_Semester obtenerSemestreDelGrupo(BULL_Group grupo) {
-        BULL_Modality modalidad = grupo.getModality();
-        if (modalidad == null) {
-            return null;
-        }
-        return modalidad.getSemester();
-    }
-
-    private String generarIdRegistration(String universityCode, int idGrupo) {
-        String uuid = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        return "REG-" + universityCode + "-G" + idGrupo + "-" + uuid;
-    }
-
-    private String construirMensajeUbicacion(BULL_Group grupo) {
-        if (grupo.getUbication() != null) {
-            return "Aula: " + grupo.getUbication().getClassroomNum() +
-                    " en " + grupo.getUbication().getUbication() + ". ";
-        }
-        return "Modalidad virtual — sin aula física asignada. ";
+        return "Modalidad virtual — sin aula física. ";
     }
 }
