@@ -9,6 +9,10 @@ public class BULL_Course {
     private int courseNumber;
     private List<BULL_Semester> semesters;
 
+    public int getIdModule() { return idModule; }
+    public int getCourseNumber() { return courseNumber; }
+    public List<BULL_Semester> getSemesters() { return Collections.unmodifiableList(semesters); }
+
     public BULL_Course(int idModule, int courseNumber) {
         if (idModule <= 0) {
             throw new IllegalArgumentException("El ID del módulo debe ser mayor a 0.");
@@ -20,12 +24,6 @@ public class BULL_Course {
         this.courseNumber = courseNumber;
         this.semesters = new ArrayList<>();
     }
-
-
-    public int getIdModule() { return idModule; }
-    public int getCourseNumber() { return courseNumber; }
-    public List<BULL_Semester> getSemesters() { return Collections.unmodifiableList(semesters); }
-
     public void addSemester(BULL_Semester semester) {
         semesters.add(semester);
     }

@@ -27,6 +27,12 @@ public class BULL_Registration {
         this.group   = group;
         this.state   = STATE_ACTIVA;
     }
+    public String getIdRegistration() { return idRegistration; }
+    public String getState() { return state; }
+    public BULL_Student getStudent() { return student; }
+    public BULL_Group getGroup() { return group; }
+    public List<BULL_Grade> getGrades() { return Collections.unmodifiableList(grades); }
+
     private String generarId(String universityCode, int idGrupo) {
         String uuid = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         return "REG-" + universityCode + "-G" + idGrupo + "-" + uuid;
@@ -68,12 +74,6 @@ public class BULL_Registration {
         }
         return total;
     }
-
-    public String getIdRegistration() { return idRegistration; }
-    public String getState() { return state; }
-    public BULL_Student getStudent() { return student; }
-    public BULL_Group getGroup() { return group; }
-    public List<BULL_Grade> getGrades() { return Collections.unmodifiableList(grades); }
 
     @Override
     public String toString() {
