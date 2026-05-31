@@ -3,19 +3,11 @@ package usecases.services;
 import entities.BULL_Group;
 import entities.BULL_Registration;
 import entities.BULL_Student;
-import entities.BULL_OnSitePresencial;
-import entities.BULL_Modality;
 import usecases.dto.ModuleOptionDTO;
 import usecases.dto.OperationResult;
-import usecases.ports.BULL_GroupRepository;
-import usecases.ports.BULL_ModalityRepository;
-import usecases.ports.BULL_RegistrationRepository;
-import usecases.ports.BULL_StudentRegistrationService;
-import usecases.ports.BULL_StudentRepository;
+import usecases.ports.*;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public class CourseRegistrationUseCase implements BULL_StudentRegistrationService.CourseRegistrationInputPort {
 
@@ -27,7 +19,7 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
     public CourseRegistrationUseCase(BULL_GroupRepository groupRepository,
                                      BULL_StudentRepository studentRepository,
                                      BULL_RegistrationRepository registrationRepository,
-                                     BULL_ModalityRepository modalityRepository) {
+                                     BULL_ModalityRepository modalityRepository, BULL_HomologationRepository homologationRepository) {
         this.groupRepository        = groupRepository;
         this.studentRepository      = studentRepository;
         this.registrationRepository = registrationRepository;
