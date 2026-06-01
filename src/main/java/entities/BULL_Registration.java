@@ -48,7 +48,7 @@ public class BULL_Registration {
             }
         }
         grades.add(grade);
-        return null;
+        return OperationResult.ok("Nota agregada correctamente.");
     }
 
     public void cancelar() {
