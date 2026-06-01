@@ -109,54 +109,6 @@ public class PlanBullApp {
 
         this.validateHomologationUseCase = new ValidateHomologationUseCase(homologationRepository);
 
-        cargarDatosIniciales();
-    }
-
-    private void cargarDatosIniciales() {
-        studentRepository.save(new BULL_Student(
-                "20231001", "Carlos", "Pérez", "carlos@unillanos.edu.co", 3, "Ingeniería de Sistemas", false));
-        studentRepository.save(new BULL_Student(
-                "20231002", "Laura", "Gómez", "laura@unillanos.edu.co", 2, "Ingeniería de Sistemas", false));
-        studentRepository.save(new BULL_Student(
-                "20231003", "Andrés", "Torres", "andres@unillanos.edu.co", 4, "Ingeniería de Sistemas", true));
-
-        BULL_Professor prof1 = new BULL_Professor("DOC001", "Luis Martínez", "luis.martinez@unillanos.edu.co");
-        BULL_Professor prof2 = new BULL_Professor("DOC002", "Ana Rodríguez", "ana.rodriguez@unillanos.edu.co");
-        professorRepository.save(prof1);
-        professorRepository.save(prof2);
-        manageModuleUseCase.crearModulo(123, 2);
-
-        BULL_Schedule h1 = new BULL_Schedule();
-        h1.addTimeSlot("Lunes", "07:00-09:00");
-        h1.addTimeSlot("Miércoles", "07:00-09:00");
-
-        BULL_Schedule h2 = new BULL_Schedule();
-        h2.addTimeSlot("Martes", "14:00-16:00");
-        h2.addTimeSlot("Jueves", "14:00-16:00");
-
-        BULL_Group g1 = new BULL_Group(101);
-        g1.setProfessor(prof1);
-        g1.setSchedule(h1);
-        g1.setMaxCapacity(new BULL_MaxCapacity(30));
-
-        BULL_Group g2 = new BULL_Group(102);
-        g2.setProfessor(prof2);
-        g2.setSchedule(h2);
-        g2.setMaxCapacity(new BULL_MaxCapacity(25));
-
-        groupRepository.save(g1);
-        groupRepository.save(g2);
-
-        BULL_OnSitePresencial presencial = new BULL_OnSitePresencial();
-        presencial.addGroup(g1);
-
-        BULL_SynchronousVirtualModality sincrona = new BULL_SynchronousVirtualModality();
-        sincrona.addGroup(g2);
-
-        modalityRepository.save(presencial);
-        modalityRepository.save(sincrona);
-
-        assignSpaceUseCase.asignarEspacio(101, "Edificio A", "101");
     }
 
     public OperationResult crearModulo(int idModule, int courseNumber) {
