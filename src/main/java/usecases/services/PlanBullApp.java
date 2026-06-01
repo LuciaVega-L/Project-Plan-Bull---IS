@@ -6,6 +6,7 @@ import usecases.dto.*;
 import usecases.ports.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PlanBullApp {
@@ -27,6 +28,7 @@ public class PlanBullApp {
     private final RequestHomologationUseCase      requestHomologationUseCase;
     private final ValidateHomologationUseCase     validateHomologationUseCase;
     private final OpenCallForApplicationsUseCase  openCallForApplicationsUseCase;
+    private final EstablishCalendarUseCase        establishCalendarUseCase;
 
     public PlanBullApp() {
 
@@ -67,6 +69,8 @@ public class PlanBullApp {
 
         this.openCallForApplicationsUseCase = new OpenCallForApplicationsUseCase(
                 callRepository, announceUseCase);
+
+        this.establishCalendarUseCase = new EstablishCalendarUseCase(groupRepository, scheduleRepository);
 
         cargarDatosIniciales();
     }
@@ -115,9 +119,8 @@ public class PlanBullApp {
         virtual.addGroup(grupo2);
         modalityRepository.save(virtual);
 
-        BULL_Ubication ubication1=new BULL_Ubication("Einstein","302");
-
-        grupo1.setUbication(ubication1,presencial);
+        BULL_Ubication ubication1 = new BULL_Ubication("Einstein", "302");
+        grupo1.setUbication(ubication1, presencial);
 
         java.util.Date hoy    = new java.util.Date();
         java.util.Date fin    = new java.util.Date(hoy.getTime() + 120L * 24 * 60 * 60 * 1000);
@@ -132,8 +135,8 @@ public class PlanBullApp {
         BULL_Student est1 = new BULL_Student("160005240", "Andrés",  "Torres",  "atorres@uni.edu",  4, "Ingeniería de Sistemas", false);
         BULL_Student est2 = new BULL_Student("160005220", "María",   "Ramírez", "mramirez@uni.edu", 5, "Ingeniería de Sistemas", false);
         BULL_Student est3 = new BULL_Student("160005207", "Sofía",   "Vargas",  "svargas@uni.edu",  4, "Ingeniería de Sistemas", true);
-        BULL_Student est4 =  new BULL_Student("160005278","Daniel","Martinez","dmartinez@Unillanos.edu.co",5,"Ing Procesos",false);
-        BULL_Student est5 = new BULL_Student("160005225","Juan","Lopez","jlopez@unillanos.edu.co",2,"Veterinaria",false);
+        BULL_Student est4 = new BULL_Student("160005278", "Daniel",  "Martinez","dmartinez@Unillanos.edu.co", 5, "Ing Procesos", false);
+        BULL_Student est5 = new BULL_Student("160005225", "Juan",    "Lopez",   "jlopez@unillanos.edu.co",    2, "Veterinaria", false);
         studentRepository.save(est1);
         studentRepository.save(est2);
         studentRepository.save(est3);
@@ -154,6 +157,8 @@ public class PlanBullApp {
         studentRepository.save(est2);
         groupRepository.save(grupo2);
     }
+
+    // ── Módulos ───────────────────────────────────────────────────────────────
 
     public OperationResult crearCourse(int idCourse, int courseNumber) {
         return manageCourseUseCase.crearCourse(idCourse, courseNumber);
@@ -194,6 +199,12 @@ public class PlanBullApp {
         return assignSpaceUseCase.asignarEspacio(idGroup, edificio, aula);
     }
 
+
+    public OperationResult establecerCalendario(int idGroup, String scheduleId, Map<String, String> franjas) {
+        return establishCalendarUseCase.establecerCalendario(idGroup, scheduleId, franjas);
+    }
+
+
     public OperationResult cargarNota(int idGroup, String universityCode, String tipoCorte, double valor) {
         GradeType tipo;
         try {
@@ -203,6 +214,7 @@ public class PlanBullApp {
         }
         return loadNotesUsecase.execute(idGroup, universityCode, tipo, valor);
     }
+
 
     public OperationResult solicitarHomologacion(String universityCode, String fileName, String fileType) {
         return requestHomologationUseCase.execute(universityCode, fileName, fileType);
@@ -265,11 +277,11 @@ public class PlanBullApp {
         return groupRepository.findAll()
                 .stream()
                 .map(g -> {
-                    String prof = g.getProfessor()   != null ? g.getProfessor().getName() : "Sin asignar";
-                    String cupos = g.getMaxCapacity() != null
+                    String prof  = g.getProfessor()   != null ? g.getProfessor().getName() : "Sin asignar";
+                    String cupos = g.getMaxCapacity()  != null
                             ? g.getMaxCapacity().getCuposRestantes() + "/" + g.getMaxCapacity().getMaxCapacity()
                             : "N/A";
-                    String aula = g.getUbication()   != null
+                    String aula  = g.getUbication()   != null
                             ? g.getUbication().getBuilding() + " – " + g.getUbication().getClassroomNum()
                             : "Virtual";
                     return new GroupDTO(g.getIdGroup(), prof, cupos, aula);
