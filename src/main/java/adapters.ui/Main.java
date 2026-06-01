@@ -26,7 +26,7 @@ public class Main {
             System.out.println("╔══════════════════════════════════════╗");
             System.out.println("║       PlanBull - Menú Principal      ║");
             System.out.println("╠══════════════════════════════════════╣");
-            System.out.println("║  1. Curso                            ║");
+            System.out.println("║  1. Módulos                          ║");
             System.out.println("║  2. Inscripciones                    ║");
             System.out.println("║  3. Espacios (aulas)                 ║");
             System.out.println("║  4. Notas                            ║");
@@ -52,20 +52,20 @@ public class Main {
         }
     }
 
-    // ── cursos ───────────────────────────────────────────────────────────────
+    // ── Módulos ───────────────────────────────────────────────────────────────
     private static void menuCourses() {
         boolean volver = false;
         while (!volver) {
-            System.out.println("\n--- Cursos ---");
-            System.out.println("1. Crear curso");
-            System.out.println("2. Consultar todos los cursos");
-            System.out.println("3. Consultar curso por ID");
-            System.out.println("4. Eliminar curso");
+            System.out.println("\n--- Módulos ---");
+            System.out.println("1. Crear módulo");
+            System.out.println("2. Consultar todos los módulos");
+            System.out.println("3. Consultar módulo por ID");
+            System.out.println("4. Eliminar módulo");
             System.out.println("0. Volver");
             System.out.print("Opción: ");
             switch (leerEntero()) {
                 case 1:
-                    System.out.print("ID del curso: ");
+                    System.out.print("ID del módulo: ");
                     int id = leerEntero();
                     System.out.print("Número de curso (1-4): ");
                     mostrar(app.crearCourse(id, leerEntero()));
@@ -74,11 +74,11 @@ public class Main {
                     mostrar(app.consultarCourses());
                     break;
                 case 3:
-                    System.out.print("ID del curso: ");
+                    System.out.print("ID del módulo: ");
                     mostrar(app.consultarCoursePorId(leerEntero()));
                     break;
                 case 4:
-                    System.out.print("ID del curso a eliminar: ");
+                    System.out.print("ID del módulo a eliminar: ");
                     mostrar(app.eliminarCourse(leerEntero()));
                     break;
                 case 0: volver = true; break;
@@ -92,8 +92,8 @@ public class Main {
         boolean volver = false;
         while (!volver) {
             System.out.println("\n--- Inscripciones ---");
-            System.out.println("1. Ver cursos disponibles para un estudiante");
-            System.out.println("2. Inscribir estudiante en un curso");
+            System.out.println("1. Ver módulos disponibles para un estudiante");
+            System.out.println("2. Inscribir estudiante en un módulo");
             System.out.println("3. Cancelar inscripción");
             System.out.println("0. Volver");
             System.out.print("Opción: ");
@@ -112,7 +112,7 @@ public class Main {
         String codigo = leerTexto();
         List<CourseOptionDTO> opciones = app.consultarCoursesDisponibles(codigo);
         if (opciones.isEmpty()) {
-            System.out.println("[INFO] Sin cursos disponibles para " + codigo + ".");
+            System.out.println("[INFO] Sin módulos disponibles para " + codigo + ".");
             return;
         }
         imprimirOpciones(opciones);
@@ -123,7 +123,7 @@ public class Main {
         String codigo = leerTexto();
         List<CourseOptionDTO> opciones = app.consultarCoursesDisponibles(codigo);
         if (opciones.isEmpty()) {
-            System.out.println("[INFO] Sin cursos disponibles para " + codigo + ".");
+            System.out.println("[INFO] Sin módulos disponibles para " + codigo + ".");
             return;
         }
         imprimirOpciones(opciones);
@@ -301,7 +301,7 @@ public class Main {
     private static void aprobarHomologacion() {
         System.out.print("Código universitario del estudiante: ");
         String codigo = leerTexto();
-        System.out.print("Número de curso homologado: ");
+        System.out.print("Número de módulo homologado: ");
         int modulo = leerEntero();
         System.out.print("Observación: ");
         String observacion = leerTexto();
