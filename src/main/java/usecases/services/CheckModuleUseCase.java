@@ -34,19 +34,12 @@ public class CheckModuleUseCase implements BULL_StudentRegistrationService.Check
         this.groupRepository    = groupRepository;
     }
 
-    // -------------------------------------------------------------------------
-    // Puerto de entrada (Clean Architecture)
-    // -------------------------------------------------------------------------
+
     @Override
     public List<ModuleOptionDTO> consultarPorEstudiante(String universityCode) {
         return consultarModulosDisponibles(universityCode);
     }
 
-    // -------------------------------------------------------------------------
-    // Caso de uso principal: consultar módulos disponibles para un estudiante
-    // Filtra por nivel del estudiante (solo ve el siguiente módulo que le toca)
-    // Retorna las opciones de grupo para que el estudiante elija
-    // -------------------------------------------------------------------------
     public List<ModuleOptionDTO> consultarModulosDisponibles(String universityCode) {
 
         List<ModuleOptionDTO> opciones = new ArrayList<>();
@@ -112,10 +105,6 @@ public class CheckModuleUseCase implements BULL_StudentRegistrationService.Check
 
         return opciones;
     }
-
-    // -------------------------------------------------------------------------
-    // Verificación rápida: ¿hay algo disponible? (para mensajes de error)
-    // -------------------------------------------------------------------------
     public OperationResult verificarDisponibilidad(String universityCode) {
 
         Optional<BULL_Student> estudianteOpt = studentRepository.findByUniversityCode(universityCode);
@@ -142,10 +131,6 @@ public class CheckModuleUseCase implements BULL_StudentRegistrationService.Check
                         estudiante.getName() + " " + estudiante.getSurnames() + "."
         );
     }
-
-    // -------------------------------------------------------------------------
-    // Helpers privados
-    // -------------------------------------------------------------------------
 
     private int determinarCourseNumber(int semestreEstudiante) {
         if (semestreEstudiante <= 2) return 1;

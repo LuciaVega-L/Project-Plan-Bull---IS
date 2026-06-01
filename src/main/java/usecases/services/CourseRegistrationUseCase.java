@@ -26,21 +26,13 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
         this.modalityRepository     = modalityRepository;
     }
 
-    // -------------------------------------------------------------------------
-    // Puerto de entrada (Clean Architecture)
-    // -------------------------------------------------------------------------
     @Override
     public OperationResult registrar(String universityCode, ModuleOptionDTO opcionElegida) {
         return inscribirModulo(universityCode, opcionElegida);
     }
 
-    // -------------------------------------------------------------------------
-    // Caso de uso principal: registrar la elección que el estudiante ya hizo
-    // Recibe el DTO que CheckModuleUseCase le presentó — NO re-consulta nada.
-    // -------------------------------------------------------------------------
     public OperationResult inscribirModulo(String universityCode, ModuleOptionDTO opcionElegida) {
 
-        // --- 1. Validar entradas básicas ---
         if (universityCode == null || universityCode.trim().isEmpty()) {
             return OperationResult.fail("El código universitario no puede estar vacío.");
         }
@@ -48,8 +40,6 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
             return OperationResult.fail("Debe seleccionar una opción de módulo.");
         }
 
-        // --- 2. Verificar que el estudiante sigue existiendo y sin inscripción activa
-        //        (pudo haber cambiado entre la consulta y el registro) ---
         Optional<BULL_Student> estudianteOpt = studentRepository.findByUniversityCode(universityCode);
         if (!estudianteOpt.isPresent()) {
             return OperationResult.fail("No se encontró el estudiante con código " + universityCode + ".");
@@ -63,8 +53,7 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
             );
         }
 
-        // --- 3. Verificar que el grupo elegido sigue disponible
-        //        (el cupo pudo llenarse entre consulta y registro) ---
+
         Optional<BULL_Group> grupoOpt = groupRepository.findByIdGroup(opcionElegida.getIdGrupo());
         if (!grupoOpt.isPresent()) {
             return OperationResult.fail(
@@ -81,14 +70,12 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
             );
         }
 
-        // --- 4. Validar ubicación si la opción elegida era presencial ---
         if (opcionElegida.isEsPresencial()) {
             OperationResult validacionUbicacion = validarUbicacionPresencial(grupo);
             if (!validacionUbicacion.isSuccess()) return validacionUbicacion;
         }
 
-        // --- 5. Crear y persistir la inscripción ---
-        BULL_Registration registration;//clean????????????
+        BULL_Registration registration;
         try {
             registration = new BULL_Registration(estudiante, grupo); // solo 2 params ahora
         } catch (IllegalArgumentException e) {
@@ -102,7 +89,6 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
 
         estudiante.addRegistration(registration);
 
-        // --- 6. Persistir en repositorios ---
         registrationRepository.save(registration);
         studentRepository.save(estudiante);
         groupRepository.save(grupo);
@@ -117,10 +103,6 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
                         "Estado: " + registration.getState() + "."
         );
     }
-
-    // -------------------------------------------------------------------------
-    // Helpers privados
-    // -------------------------------------------------------------------------
 
     private OperationResult validarUbicacionPresencial(BULL_Group grupo) {
         if (grupo.getUbication() == null) {
