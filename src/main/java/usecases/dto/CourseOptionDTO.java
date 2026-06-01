@@ -1,7 +1,7 @@
 package usecases.dto;
-public class ModuleOptionDTO {
+public class CourseOptionDTO {
 
-    private final int    idModule;
+    private final int    idCourse;
     private final int    courseNumber;
     private final String modalidad;
     private final int    idGrupo;
@@ -12,7 +12,7 @@ public class ModuleOptionDTO {
     private final String  numAula;
 
 
-    public ModuleOptionDTO(int idModule,
+    public CourseOptionDTO(int idCourse,
                            int courseNumber,
                            String modalidad,
                            int idGrupo,
@@ -21,7 +21,7 @@ public class ModuleOptionDTO {
                            boolean esPresencial,
                            String ubicacion,
                            String numAula) {
-        this.idModule       = idModule;
+        this.idCourse       = idCourse;
         this.courseNumber   = courseNumber;
         this.modalidad      = modalidad;
         this.idGrupo        = idGrupo;
@@ -31,8 +31,8 @@ public class ModuleOptionDTO {
         this.ubicacion      = ubicacion;
         this.numAula        = numAula;
     }
-    
-    public int     getIdModule()       { return idModule; }
+
+    public int     getIdCourse()       { return idCourse; }
     public int     getCourseNumber()   { return courseNumber; }
     public String  getModalidad()      { return modalidad; }
     public int     getIdGrupo()        { return idGrupo; }
@@ -45,8 +45,8 @@ public class ModuleOptionDTO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ModuleOptionDTO{");
-        sb.append("modulo=").append(idModule);
+        sb.append("CourseOptionDTO{");
+        sb.append("modulo=").append(idCourse);
         sb.append(", curso=").append(courseNumber);
         sb.append(", modalidad='").append(modalidad).append("'");
         sb.append(", grupo=").append(idGrupo);

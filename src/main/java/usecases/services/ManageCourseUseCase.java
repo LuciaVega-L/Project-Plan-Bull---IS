@@ -7,34 +7,34 @@ import usecases.ports.BULL_CourseRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class ManageModuleUseCase {
+public class ManageCourseUseCase {
 
     private final BULL_CourseRepository courseRepository;
 
-    public ManageModuleUseCase(BULL_CourseRepository courseRepository) {
+    public ManageCourseUseCase(BULL_CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
-    public OperationResult crearModulo(int idModule, int courseNumber) {
+    public OperationResult crearCourse(int idCourse, int courseNumber) {
 
-        if (idModule <= 0) {
+        if (idCourse <= 0) {
             return OperationResult.fail("El ID del módulo debe ser mayor a 0.");
         }
         if (courseNumber < 1 || courseNumber > 4) {
             return OperationResult.fail("El número de curso debe estar entre 1 y 4.");
         }
 
-        Optional<BULL_Course> existente = courseRepository.findByIdModule(idModule);
+        Optional<BULL_Course> existente = courseRepository.findByIdCourse(idCourse);
         if (existente.isPresent()) {
             return OperationResult.fail(
-                    "Ya existe un módulo con ID " + idModule + ". " +
+                    "Ya existe un módulo con ID " + idCourse + ". " +
                             "Use un ID diferente."
             );
         }
 
         BULL_Course curso;
         try {
-            curso = new BULL_Course(idModule, courseNumber);
+            curso = new BULL_Course(idCourse, courseNumber);
         } catch (IllegalArgumentException e) {
             return OperationResult.fail("Error al crear el módulo: " + e.getMessage());
         }
@@ -43,12 +43,12 @@ public class ManageModuleUseCase {
 
         return OperationResult.ok(
                 "Módulo creado exitosamente. " +
-                        "ID: " + idModule + ". " +
+                        "ID: " + idCourse + ". " +
                         "Número de curso: " + courseNumber + "."
         );
     }
 
-    public OperationResult consultarModulos() {
+    public OperationResult consultarCourses() {
 
         List<BULL_Course> cursos = courseRepository.findAll();
 
@@ -61,7 +61,7 @@ public class ManageModuleUseCase {
 
         for (int i = 0; i < cursos.size(); i++) {
             BULL_Course curso = cursos.get(i);
-            mensaje.append("  - ID: ").append(curso.getIdModule())
+            mensaje.append("  - ID: ").append(curso.getIdCourse())
                     .append(", Curso: ").append(curso.getCourseNumber())
                     .append(", Semestres: ").append(curso.getSemesters().size())
                     .append(".\n");
@@ -70,50 +70,50 @@ public class ManageModuleUseCase {
         return OperationResult.ok(mensaje.toString());
     }
 
-    public OperationResult consultarModuloPorId(int idModule) {
+    public OperationResult consultarCoursePorId(int idCourse) {
 
-        if (idModule <= 0) {
+        if (idCourse <= 0) {
             return OperationResult.fail("El ID del módulo debe ser mayor a 0.");
         }
 
-        Optional<BULL_Course> cursoOpt = courseRepository.findByIdModule(idModule);
+        Optional<BULL_Course> cursoOpt = courseRepository.findByIdCourse(idCourse);
         if (!cursoOpt.isPresent()) {
-            return OperationResult.fail("No se encontró el módulo con ID " + idModule + ".");
+            return OperationResult.fail("No se encontró el módulo con ID " + idCourse + ".");
         }
 
         BULL_Course curso = cursoOpt.get();
 
         return OperationResult.ok(
                 "Módulo encontrado. " +
-                        "ID: " + curso.getIdModule() + ". " +
+                        "ID: " + curso.getIdCourse() + ". " +
                         "Número de curso: " + curso.getCourseNumber() + ". " +
                         "Semestres asociados: " + curso.getSemesters().size() + "."
         );
     }
 
-    public OperationResult eliminarModulo(int idModule) {
+    public OperationResult eliminarCourse(int idCourse) {
 
-        if (idModule <= 0) {
+        if (idCourse <= 0) {
             return OperationResult.fail("El ID del módulo debe ser mayor a 0.");
         }
 
-        Optional<BULL_Course> cursoOpt = courseRepository.findByIdModule(idModule);
+        Optional<BULL_Course> cursoOpt = courseRepository.findByIdCourse(idCourse);
         if (!cursoOpt.isPresent()) {
-            return OperationResult.fail("No se encontró el módulo con ID " + idModule + ".");
+            return OperationResult.fail("No se encontró el módulo con ID " + idCourse + ".");
         }
 
         BULL_Course curso = cursoOpt.get();
 
         if (!curso.getSemesters().isEmpty()) {
             return OperationResult.fail(
-                    "El módulo " + idModule + " tiene " + curso.getSemesters().size() +
+                    "El módulo " + idCourse + " tiene " + curso.getSemesters().size() +
                             " semestre(s) asociado(s). " +
                             "Elimine los semestres antes de eliminar el módulo."
             );
         }
 
-        courseRepository.deleteByIdModule(idModule);
+        courseRepository.deleteByIdCourse(idCourse);
 
-        return OperationResult.ok("Módulo " + idModule + " eliminado exitosamente.");
+        return OperationResult.ok("Módulo " + idCourse + " eliminado exitosamente.");
     }
 }

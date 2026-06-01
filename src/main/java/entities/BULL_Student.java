@@ -67,6 +67,9 @@ public class BULL_Student {
         registrations.add(registration);
     }
 
+    public boolean puedeInscribirCourses() {
+        return this.semester >= 4;
+    }
     public boolean tieneInscripcionActiva() {
         for (int i = 0; i < registrations.size(); i++) {
             if (registrations.get(i).estaActiva()) {
