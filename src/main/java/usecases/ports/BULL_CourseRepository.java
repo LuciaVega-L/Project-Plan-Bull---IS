@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BULL_CourseRepository {
-    Optional<BULL_Course> findByIdModule(int idModule);
+    Optional<BULL_Course> findByIdCourse(int idCourse);
     List<BULL_Course> findAll();
     void save(BULL_Course course);
-    void deleteByIdModule(int idModule);
+    void deleteByIdCourse(int idCourse);
 }

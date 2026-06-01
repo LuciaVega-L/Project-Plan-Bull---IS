@@ -1,7 +1,7 @@
 package adapters.ui;
 
 import entities.*;
-import usecases.dto.ModuleOptionDTO;
+import usecases.dto.CourseOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.services.PlanBullApp;
 
@@ -40,7 +40,7 @@ public class Main {
                 case 1: menuModulos();       break;
                 case 2: menuInscripciones(); break;
                 case 3: menuEspacios();      break;
-                case 4: menuNotas();         break;
+                case 4: menuNotas();        break;
                 case 5: menuVerDatos();      break;
                 case 6: menuConvocatorias(); break;
                 case 7: menuHomologaciones(); break;
@@ -108,7 +108,7 @@ public class Main {
     private static void verModulosDisponibles() {
         System.out.print("Código universitario del estudiante: ");
         String codigo = leerTexto();
-        List<ModuleOptionDTO> opciones = app.consultarModulosDisponibles(codigo);
+        List<CourseOptionDTO> opciones = app.consultarModulosDisponibles(codigo);
         if (opciones.isEmpty()) {
             System.out.println("[INFO] Sin módulos disponibles para " + codigo + ".");
             return;
@@ -116,11 +116,13 @@ public class Main {
         imprimirOpciones(opciones);
     }
 
+
+
     private static void inscribirEstudiante() {
         System.out.print("Código universitario del estudiante: ");
         String codigo = leerTexto();
 
-        List<ModuleOptionDTO> opciones = app.consultarModulosDisponibles(codigo);
+        List<CourseOptionDTO> opciones = app.consultarModulosDisponibles(codigo);
         if (opciones.isEmpty()) {
             System.out.println("[INFO] Sin módulos disponibles para " + codigo + ".");
             return;
@@ -139,12 +141,12 @@ public class Main {
         mostrar(app.cancelarInscripcion(idReg, codigo));
     }
 
-    private static void imprimirOpciones(List<ModuleOptionDTO> opciones) {
+    private static void imprimirOpciones(List<CourseOptionDTO> opciones) {
         System.out.println("\nOpciones disponibles:");
         for (int i = 0; i < opciones.size(); i++) {
-            ModuleOptionDTO o = opciones.get(i);
+            CourseOptionDTO o = opciones.get(i);
             System.out.printf("  [%d] Grupo %-4d | Módulo %-3d | Curso %-2d | %-22s | Cupos: %-3d | Horario: %s%n",
-                    i + 1, o.getIdGrupo(), o.getIdModule(), o.getCourseNumber(),
+                    i + 1, o.getIdGrupo(), o.getIdCourse(), o.getCourseNumber(),
                     o.getModalidad(), o.getCuposRestantes(), o.getHorario());
             if (o.isEsPresencial() && o.getUbicacion() != null) {
                 System.out.printf("       Edificio: %s  Aula: %s%n", o.getUbicacion(), o.getNumAula());
@@ -170,8 +172,8 @@ public class Main {
         System.out.println("\n--- Cargar nota ---");
         System.out.print("ID del grupo: ");
         int idGrupo = leerEntero();
-        System.out.print("ID de la inscripción: ");
-        String idReg = leerTexto();
+        System.out.print("Código universitario del estudiante: ");
+        String universityCode = leerTexto();
 
         System.out.println("Tipo de corte:");
         System.out.println("  1. PRIMER_CORTE  (30%)");
@@ -187,10 +189,11 @@ public class Main {
         }
 
         System.out.print("Valor de la nota (0.0 - 5.0): ");
-        mostrar(app.cargarNota(idGrupo, idReg, tipos[opcionCorte - 1], leerDouble()));
+        double nota = leerDouble();
+        mostrar(app.cargarNota(idGrupo, universityCode, tipos[opcionCorte - 1], nota));
     }
 
-    // VER DATOS
+
     private static void menuVerDatos() {
         boolean volver = false;
         while (!volver) {

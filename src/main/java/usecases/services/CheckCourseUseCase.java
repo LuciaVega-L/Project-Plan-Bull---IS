@@ -5,7 +5,7 @@ import entities.BULL_Group;
 import entities.BULL_Modality;
 import entities.BULL_OnSitePresencial;
 import entities.BULL_Student;
-import usecases.dto.ModuleOptionDTO;
+import usecases.dto.CourseOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.BULL_CourseRepository;
 import usecases.ports.BULL_GroupRepository;
@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CheckModuleUseCase implements BULL_StudentRegistrationService.CheckModuleInputPort {
+public class CheckCourseUseCase implements BULL_StudentRegistrationService.CheckCourseInputPort {
 
     private final BULL_StudentRepository  studentRepository;
     private final BULL_CourseRepository   courseRepository;
     private final BULL_ModalityRepository modalityRepository;
     private final BULL_GroupRepository    groupRepository;
 
-    public CheckModuleUseCase(BULL_StudentRepository studentRepository,
+    public CheckCourseUseCase(BULL_StudentRepository studentRepository,
                               BULL_CourseRepository courseRepository,
                               BULL_ModalityRepository modalityRepository,
                               BULL_GroupRepository groupRepository) {
@@ -38,7 +38,7 @@ public class CheckModuleUseCase implements BULL_StudentRegistrationService.Check
     // Puerto de entrada (Clean Architecture)
     // -------------------------------------------------------------------------
     @Override
-    public List<ModuleOptionDTO> consultarPorEstudiante(String universityCode) {
+    public List<CourseOptionDTO> consultarPorEstudiante(String universityCode) {
         return consultarModulosDisponibles(universityCode);
     }
 
@@ -47,9 +47,9 @@ public class CheckModuleUseCase implements BULL_StudentRegistrationService.Check
     // Filtra por nivel del estudiante (solo ve el siguiente módulo que le toca)
     // Retorna las opciones de grupo para que el estudiante elija
     // -------------------------------------------------------------------------
-    public List<ModuleOptionDTO> consultarModulosDisponibles(String universityCode) {
+    public List<CourseOptionDTO> consultarModulosDisponibles(String universityCode) {
 
-        List<ModuleOptionDTO> opciones = new ArrayList<>();
+        List<CourseOptionDTO> opciones = new ArrayList<>();
 
         // 1. Buscar estudiante
         Optional<BULL_Student> estudianteOpt = studentRepository.findByUniversityCode(universityCode);
@@ -95,8 +95,8 @@ public class CheckModuleUseCase implements BULL_StudentRegistrationService.Check
                 numAula   = grupo.getUbication().getClassroomNum();
             }
 
-            ModuleOptionDTO opcion = new ModuleOptionDTO(
-                    cursoDelEstudiante.getIdModule(),
+            CourseOptionDTO opcion = new CourseOptionDTO(
+                    cursoDelEstudiante.getIdCourse(),
                     cursoDelEstudiante.getCourseNumber(),
                     modalidad.getMode(),
                     grupo.getIdGroup(),
@@ -132,7 +132,7 @@ public class CheckModuleUseCase implements BULL_StudentRegistrationService.Check
             );
         }
 
-        List<ModuleOptionDTO> opciones = consultarModulosDisponibles(universityCode);
+        List<CourseOptionDTO> opciones = consultarModulosDisponibles(universityCode);
         if (opciones.isEmpty()) {
             return OperationResult.fail("No hay módulos disponibles para el estudiante " + universityCode + ".");
         }
