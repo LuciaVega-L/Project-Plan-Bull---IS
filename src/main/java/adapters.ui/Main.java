@@ -32,6 +32,7 @@ public class Main {
             System.out.println("║  4. Notas                            ║");
             System.out.println("║  5. Ver datos del sistema            ║");
             System.out.println("║  6. Convocatorias                    ║");
+            System.out.println("║  7. Homologaciones                   ║");
             System.out.println("║  0. Salir                            ║");
             System.out.println("╚══════════════════════════════════════╝");
             System.out.print("Opción: ");
@@ -42,6 +43,7 @@ public class Main {
                 case 4: menuNotas();         break;
                 case 5: menuVerDatos();      break;
                 case 6: menuConvocatorias(); break;
+                case 7: menuHomologaciones(); break;
                 case 0: salir = true; System.out.println("Hasta pronto."); break;
                 default: System.out.println("[!] Opción no válida.\n");
             }
@@ -257,6 +259,72 @@ public class Main {
             System.out.printf("  Grupo %-4d | %-22s | Cupos: %-6s | %s%n",
                     g.getIdGroup(), prof, cupos, aula);
         }
+    }
+    // HOMOLOGACIONES
+    private static void menuHomologaciones() {
+        boolean volver = false;
+        while (!volver) {
+            System.out.println("\n--- Homologaciones ---");
+            System.out.println("1. Solicitar homologación");
+            System.out.println("2. Listar homologaciones pendientes");
+            System.out.println("3. Aprobar homologación");
+            System.out.println("4. Rechazar homologación");
+            System.out.println("0. Volver");
+            System.out.print("Opción: ");
+            switch (leerEntero()) {
+                case 1: solicitarHomologacion(); break;
+                case 2: listarHomologaciones();  break;
+                case 3: aprobarHomologacion();   break;
+                case 4: rechazarHomologacion();  break;
+                case 0: volver = true;           break;
+                default: System.out.println("[!] Opción no válida.");
+            }
+        }
+    }
+
+    private static void solicitarHomologacion() {
+        System.out.print("Código universitario del estudiante: ");
+        String codigo = leerTexto();
+        System.out.print("Nombre del archivo (ej: certificado.pdf): ");
+        String fileName = leerTexto();
+        System.out.print("Tipo de archivo (PDF, DOCX, TXT, JPG, PNG): ");
+        String fileType = leerTexto();
+        mostrar(app.solicitarHomologacion(codigo, fileName, fileType));
+    }
+
+    private static void listarHomologaciones() {
+        List<BULL_Homologation> lista = app.listarHomologacionesPendientes();
+        if (lista.isEmpty()) {
+            System.out.println("[INFO] No hay homologaciones pendientes.");
+            return;
+        }
+        System.out.println("\nHomologaciones pendientes:");
+        for (BULL_Homologation h : lista) {
+            System.out.printf("  %-12s | %-25s | Archivo: %s (%s) | Estado: %s%n",
+                    h.getStudent().getUniversityCode(),
+                    h.getStudent().getName() + " " + h.getStudent().getSurnames(),
+                    h.getCertificate().getFileName(),
+                    h.getCertificate().getFileType(),
+                    h.getStatus());
+        }
+    }
+
+    private static void aprobarHomologacion() {
+        System.out.print("Código universitario del estudiante: ");
+        String codigo = leerTexto();
+        System.out.print("Número de módulo homologado: ");
+        int modulo = leerEntero();
+        System.out.print("Observación: ");
+        String observacion = leerTexto();
+        mostrar(app.aprobarHomologacion(codigo, modulo, observacion));
+    }
+
+    private static void rechazarHomologacion() {
+        System.out.print("Código universitario del estudiante: ");
+        String codigo = leerTexto();
+        System.out.print("Razón del rechazo: ");
+        String razon = leerTexto();
+        mostrar(app.rechazarHomologacion(codigo, razon));
     }
 
     // CONVOCATORIAS
