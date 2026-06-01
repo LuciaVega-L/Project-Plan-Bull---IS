@@ -3,6 +3,7 @@ package usecases.services;
 import entities.*;
 import infrastructure.repositories.*;
 import usecases.dto.ModuleOptionDTO;
+import usecases.dto.OpenCallDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
 
@@ -18,76 +19,31 @@ public class PlanBullApp {
     private final BULL_ScheduleRepository     scheduleRepository;
     private final BULL_RegistrationRepository registrationRepository;
 
-    private final CheckModuleUseCase             checkModuleUseCase;
-    private final CourseRegistrationUseCase      courseRegistrationUseCase;
-    private final CancelInscriptionUseCase       cancelInscriptionUseCase;
-    private final ManageModuleUseCase            manageModuleUseCase;
-    private final AssignSpaceUseCase             assignSpaceUseCase;
-    private final LoadNotesUsecase               loadNotesUsecase;
-    private final RequestHomologationUseCase     requestHomologationUseCase;
-    private final ValidateHomologationUseCase    validateHomologationUseCase;
-
-    public PlanBullApp(BULL_StudentRepository studentRepository,
-                       BULL_ProfessorRepository professorRepository,
-                       BULL_CourseRepository courseRepository,
-                       BULL_GroupRepository groupRepository,
-                       BULL_ModalityRepository modalityRepository,
-                       BULL_ScheduleRepository scheduleRepository,
-                       BULL_RegistrationRepository registrationRepository,
-                       CheckModuleUseCase checkModuleUseCase,
-                       CourseRegistrationUseCase courseRegistrationUseCase,
-                       CancelInscriptionUseCase cancelInscriptionUseCase,
-                       ManageModuleUseCase manageModuleUseCase,
-                       AssignSpaceUseCase assignSpaceUseCase,
-                       LoadNotesUsecase loadNotesUsecase,
-                       RequestHomologationUseCase requestHomologationUseCase,
-                       ValidateHomologationUseCase validateHomologationUseCase) {
-        this.studentRepository           = studentRepository;
-        this.professorRepository         = professorRepository;
-        this.courseRepository            = courseRepository;
-        this.groupRepository             = groupRepository;
-        this.modalityRepository          = modalityRepository;
-        this.scheduleRepository          = scheduleRepository;
-        this.registrationRepository      = registrationRepository;
-        this.checkModuleUseCase          = checkModuleUseCase;
-        this.courseRegistrationUseCase   = courseRegistrationUseCase;
-        this.cancelInscriptionUseCase    = cancelInscriptionUseCase;
-        this.manageModuleUseCase         = manageModuleUseCase;
-        this.assignSpaceUseCase          = assignSpaceUseCase;
-        this.loadNotesUsecase            = loadNotesUsecase;
-        this.requestHomologationUseCase  = requestHomologationUseCase;
-        this.validateHomologationUseCase = validateHomologationUseCase;
-    }
+    private final CheckModuleUseCase              checkModuleUseCase;
+    private final CourseRegistrationUseCase       courseRegistrationUseCase;
+    private final CancelInscriptionUseCase        cancelInscriptionUseCase;
+    private final ManageModuleUseCase             manageModuleUseCase;
+    private final AssignSpaceUseCase              assignSpaceUseCase;
+    private final LoadNotesUsecase                loadNotesUsecase;
+    private final RequestHomologationUseCase      requestHomologationUseCase;
+    private final ValidateHomologationUseCase     validateHomologationUseCase;
+    private final OpenCallForApplicationsUseCase  openCallForApplicationsUseCase;
 
     public PlanBullApp() {
-        this(
-                new BULL_InMemoryStudentRepository(),
-                new BULL_InMemoryProfessorRepository(),
-                new BULL_InMemoryCourseRepository(),
-                new BULL_InMemoryGroupRepository(),
-                new BULL_InMemoryModalityRepository(),
-                new BULL_InMemoryScheduleRepository(),
-                new BULL_InMemoryRegistrationRepository(),
-                new BULL_InMemoryHomologationRepository()
-        );
-    }
 
-    private PlanBullApp(BULL_StudentRepository      studentRepository,
-                        BULL_ProfessorRepository    professorRepository,
-                        BULL_CourseRepository       courseRepository,
-                        BULL_GroupRepository        groupRepository,
-                        BULL_ModalityRepository     modalityRepository,
-                        BULL_ScheduleRepository     scheduleRepository,
-                        BULL_RegistrationRepository registrationRepository,
-                        BULL_HomologationRepository homologationRepository) {
-        this.studentRepository      = studentRepository;
-        this.professorRepository    = professorRepository;
-        this.courseRepository       = courseRepository;
-        this.groupRepository        = groupRepository;
-        this.modalityRepository     = modalityRepository;
-        this.scheduleRepository     = scheduleRepository;
-        this.registrationRepository = registrationRepository;
+        // --- Repositorios ---
+        this.studentRepository      = new BULL_InMemoryStudentRepository();
+        this.professorRepository    = new BULL_InMemoryProfessorRepository();
+        this.courseRepository       = new BULL_InMemoryCourseRepository();
+        this.groupRepository        = new BULL_InMemoryGroupRepository();
+        this.modalityRepository     = new BULL_InMemoryModalityRepository();
+        this.scheduleRepository     = new BULL_InMemoryScheduleRepository();
+        this.registrationRepository = new BULL_InMemoryRegistrationRepository();
 
+        BULL_HomologationRepository homologationRepository = new BULL_InMemoryHomologationRepository();
+        BULL_CallRepository         callRepository         = new BULL_InMemoryCallRepository();
+
+        // --- Casos de uso ---
         this.checkModuleUseCase = new CheckModuleUseCase(
                 studentRepository, courseRepository, modalityRepository, groupRepository);
 
@@ -109,9 +65,16 @@ public class PlanBullApp {
 
         this.validateHomologationUseCase = new ValidateHomologationUseCase(homologationRepository);
 
+        AnnounceCallForApplicationsUseCase announceUseCase =
+                new AnnounceCallForApplicationsUseCase(studentRepository);
+
+        this.openCallForApplicationsUseCase = new OpenCallForApplicationsUseCase(
+                callRepository, announceUseCase);
+
         cargarDatosIniciales();
     }
 
+    // Datos iniciales
     private void cargarDatosIniciales() {
         studentRepository.save(new BULL_Student(
                 "20231001", "Carlos", "Pérez", "carlos@unillanos.edu.co", 3, "Ingeniería de Sistemas", false));
@@ -124,15 +87,16 @@ public class PlanBullApp {
         BULL_Professor prof2 = new BULL_Professor("DOC002", "Ana Rodríguez", "ana.rodriguez@unillanos.edu.co");
         professorRepository.save(prof1);
         professorRepository.save(prof2);
+
         manageModuleUseCase.crearModulo(123, 2);
 
         BULL_Schedule h1 = new BULL_Schedule();
-        h1.addTimeSlot("Lunes", "07:00-09:00");
-        h1.addTimeSlot("Miércoles", "07:00-09:00");
+        h1.addTimeSlot("Lunes",      "07:00-09:00");
+        h1.addTimeSlot("Miércoles",  "07:00-09:00");
 
         BULL_Schedule h2 = new BULL_Schedule();
-        h2.addTimeSlot("Martes", "14:00-16:00");
-        h2.addTimeSlot("Jueves", "14:00-16:00");
+        h2.addTimeSlot("Martes",  "14:00-16:00");
+        h2.addTimeSlot("Jueves",  "14:00-16:00");
 
         BULL_Group g1 = new BULL_Group(101);
         g1.setProfessor(prof1);
@@ -159,6 +123,7 @@ public class PlanBullApp {
         assignSpaceUseCase.asignarEspacio(101, "Edificio A", "101");
     }
 
+    // Módulos
     public OperationResult crearModulo(int idModule, int courseNumber) {
         return manageModuleUseCase.crearModulo(idModule, courseNumber);
     }
@@ -175,19 +140,18 @@ public class PlanBullApp {
         return manageModuleUseCase.eliminarModulo(idModule);
     }
 
+    // Inscripciones
     public List<ModuleOptionDTO> consultarModulosDisponibles(String universityCode) {
         return checkModuleUseCase.consultarModulosDisponibles(universityCode);
     }
 
     public OperationResult inscribirEstudiante(String universityCode, int indiceOpcion) {
         List<ModuleOptionDTO> opciones = checkModuleUseCase.consultarModulosDisponibles(universityCode);
-        if (opciones.isEmpty()) {
+        if (opciones.isEmpty())
             return OperationResult.fail("No hay módulos disponibles para el estudiante " + universityCode + ".");
-        }
-        if (indiceOpcion < 0 || indiceOpcion >= opciones.size()) {
+        if (indiceOpcion < 0 || indiceOpcion >= opciones.size())
             return OperationResult.fail(
                     "Opción " + (indiceOpcion + 1) + " no existe. Hay " + opciones.size() + " opción(es).");
-        }
         return courseRegistrationUseCase.inscribirModulo(universityCode, opciones.get(indiceOpcion));
     }
 
@@ -195,17 +159,18 @@ public class PlanBullApp {
         return cancelInscriptionUseCase.cancelarInscripcion(idRegistration, universityCode);
     }
 
+    // Espacios
     public OperationResult asignarEspacio(int idGroup, String edificio, String aula) {
         return assignSpaceUseCase.asignarEspacio(idGroup, edificio, aula);
     }
 
+    // Notas
     public OperationResult cargarNota(int idGroup, String idRegistration, GradeType tipo, double valor) {
         return loadNotesUsecase.execute(idGroup, idRegistration, tipo, valor);
     }
 
-    public OperationResult solicitarHomologacion(String universityCode,
-                                                 String fileName,
-                                                 String fileType) {
+    // Homologaciones
+    public OperationResult solicitarHomologacion(String universityCode, String fileName, String fileType) {
         return requestHomologationUseCase.execute(universityCode, fileName, fileType);
     }
 
@@ -213,9 +178,7 @@ public class PlanBullApp {
         return validateHomologationUseCase.listPending();
     }
 
-    public OperationResult aprobarHomologacion(String universityCode,
-                                               int moduleNumber,
-                                               String observation) {
+    public OperationResult aprobarHomologacion(String universityCode, int moduleNumber, String observation) {
         return validateHomologationUseCase.approve(universityCode, moduleNumber, observation);
     }
 
@@ -223,8 +186,14 @@ public class PlanBullApp {
         return validateHomologationUseCase.reject(universityCode, reason);
     }
 
-    public List<BULL_Student>       getEstudiantes()   { return studentRepository.findAll(); }
-    public List<BULL_Professor>     getProfesores()    { return professorRepository.findAll(); }
-    public List<BULL_Registration>  getInscripciones() { return registrationRepository.findAll(); }
-    public List<BULL_Group>         getGrupos()        { return groupRepository.findAll(); }
+    // Convocatorias
+    public OperationResult openCall(String callId, int year, int period, String description) {
+        return openCallForApplicationsUseCase.open(new OpenCallDTO(callId, year, period, description));
+    }
+
+    // Consultas generales
+    public List<BULL_Student>      getEstudiantes()    { return studentRepository.findAll(); }
+    public List<BULL_Professor>    getProfesores()     { return professorRepository.findAll(); }
+    public List<BULL_Registration> getInscripciones()  { return registrationRepository.findAll(); }
+    public List<BULL_Group>        getGrupos()         { return groupRepository.findAll(); }
 }
