@@ -3,7 +3,7 @@ package usecases.services;
 import entities.BULL_Group;
 import entities.BULL_Registration;
 import entities.BULL_Student;
-import usecases.dto.ModuleOptionDTO;
+import usecases.dto.CourseOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
 
@@ -30,15 +30,15 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
     // Puerto de entrada (Clean Architecture)
     // -------------------------------------------------------------------------
     @Override
-    public OperationResult registrar(String universityCode, ModuleOptionDTO opcionElegida) {
+    public OperationResult registrar(String universityCode, CourseOptionDTO opcionElegida) {
         return inscribirModulo(universityCode, opcionElegida);
     }
 
     // -------------------------------------------------------------------------
     // Caso de uso principal: registrar la elección que el estudiante ya hizo
-    // Recibe el DTO que CheckModuleUseCase le presentó — NO re-consulta nada.
+    // Recibe el DTO que CheckCourseUseCase le presentó — NO re-consulta nada.
     // -------------------------------------------------------------------------
-    public OperationResult inscribirModulo(String universityCode, ModuleOptionDTO opcionElegida) {
+    public OperationResult inscribirModulo(String universityCode, CourseOptionDTO opcionElegida) {
 
         // --- 1. Validar entradas básicas ---
         if (universityCode == null || universityCode.trim().isEmpty()) {
@@ -133,7 +133,7 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
     }
 
 
-    private String construirMensajeUbicacion(ModuleOptionDTO opcion) {
+    private String construirMensajeUbicacion(CourseOptionDTO opcion) {
         if (opcion.isEsPresencial() && opcion.getUbicacion() != null) {
             return "Aula: " + opcion.getNumAula() + " en " + opcion.getUbicacion() + ". ";
         }

@@ -2,7 +2,7 @@ package usecases.services;
 
 import entities.*;
 import infrastructure.repositories.*;
-import usecases.dto.ModuleOptionDTO;
+import usecases.dto.CourseOptionDTO;
 import usecases.dto.OpenCallDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
@@ -19,10 +19,10 @@ public class PlanBullApp {
     private final BULL_ScheduleRepository     scheduleRepository;
     private final BULL_RegistrationRepository registrationRepository;
 
-    private final CheckModuleUseCase              checkModuleUseCase;
+    private final CheckCourseUseCase              checkCourseUseCase;
     private final CourseRegistrationUseCase       courseRegistrationUseCase;
     private final CancelInscriptionUseCase        cancelInscriptionUseCase;
-    private final ManageModuleUseCase             manageModuleUseCase;
+    private final ManageCourseUseCase             manageCourseUseCase;
     private final AssignSpaceUseCase              assignSpaceUseCase;
     private final LoadNotesUsecase                loadNotesUsecase;
     private final RequestHomologationUseCase      requestHomologationUseCase;
@@ -44,7 +44,7 @@ public class PlanBullApp {
         BULL_CallRepository         callRepository         = new BULL_InMemoryCallRepository();
 
         // --- Casos de uso ---
-        this.checkModuleUseCase = new CheckModuleUseCase(
+        this.checkCourseUseCase = new CheckCourseUseCase(
                 studentRepository, courseRepository, modalityRepository, groupRepository);
 
         this.courseRegistrationUseCase = new CourseRegistrationUseCase(
@@ -54,11 +54,11 @@ public class PlanBullApp {
         this.cancelInscriptionUseCase = new CancelInscriptionUseCase(
                 registrationRepository, studentRepository, groupRepository);
 
-        this.manageModuleUseCase = new ManageModuleUseCase(courseRepository);
+        this.manageCourseUseCase = new ManageCourseUseCase(courseRepository);
 
         this.assignSpaceUseCase = new AssignSpaceUseCase(groupRepository, modalityRepository);
 
-        this.loadNotesUsecase = new LoadNotesUsecase(groupRepository, registrationRepository);
+        this.loadNotesUsecase = new LoadNotesUsecase(groupRepository, registrationRepository, studentRepository);
 
         this.requestHomologationUseCase = new RequestHomologationUseCase(
                 studentRepository, homologationRepository);
@@ -75,78 +75,106 @@ public class PlanBullApp {
     }
 
     // Datos iniciales
-    private void cargarDatosIniciales() {
-        studentRepository.save(new BULL_Student(
-                "20231001", "Carlos", "Pérez", "carlos@unillanos.edu.co", 3, "Ingeniería de Sistemas", false));
-        studentRepository.save(new BULL_Student(
-                "20231002", "Laura", "Gómez", "laura@unillanos.edu.co", 2, "Ingeniería de Sistemas", false));
-        studentRepository.save(new BULL_Student(
-                "20231003", "Andrés", "Torres", "andres@unillanos.edu.co", 4, "Ingeniería de Sistemas", true));
+    public void cargarDatosIniciales() {
 
-        BULL_Professor prof1 = new BULL_Professor("DOC001", "Luis Martínez", "luis.martinez@unillanos.edu.co");
-        BULL_Professor prof2 = new BULL_Professor("DOC002", "Ana Rodríguez", "ana.rodriguez@unillanos.edu.co");
+        BULL_Course modulo1 = new BULL_Course(1, 1);
+        BULL_Course modulo2 = new BULL_Course(2, 2);
+        courseRepository.save(modulo1);
+        courseRepository.save(modulo2);
+
+        BULL_Professor prof1 = new BULL_Professor("DOC-001", "Carlos Pérez",   "cperez@universidad.edu");
+        BULL_Professor prof2 = new BULL_Professor("DOC-002", "Laura Gómez",    "lgomez@universidad.edu");
         professorRepository.save(prof1);
         professorRepository.save(prof2);
 
-        manageModuleUseCase.crearModulo(123, 2);
+        BULL_Schedule horario1 = new BULL_Schedule();
+        horario1.addTimeSlot("Lunes",    "07:00-09:00");
+        horario1.addTimeSlot("Miércoles","07:00-09:00");
+        scheduleRepository.save("SCH-001", horario1);
 
-        BULL_Schedule h1 = new BULL_Schedule();
-        h1.addTimeSlot("Lunes",      "07:00-09:00");
-        h1.addTimeSlot("Miércoles",  "07:00-09:00");
+        BULL_Schedule horario2 = new BULL_Schedule();
+        horario2.addTimeSlot("Martes",  "14:00-16:00");
+        horario2.addTimeSlot("Jueves",  "14:00-16:00");
+        scheduleRepository.save("SCH-002", horario2);
 
-        BULL_Schedule h2 = new BULL_Schedule();
-        h2.addTimeSlot("Martes",  "14:00-16:00");
-        h2.addTimeSlot("Jueves",  "14:00-16:00");
+        BULL_Group grupo1 = new BULL_Group(1);
+        grupo1.setProfessor(prof1);
+        grupo1.setSchedule(horario1);
+        grupo1.setMaxCapacity(new BULL_MaxCapacity(30));
 
-        BULL_Group g1 = new BULL_Group(101);
-        g1.setProfessor(prof1);
-        g1.setSchedule(h1);
-        g1.setMaxCapacity(new BULL_MaxCapacity(30));
+        BULL_Group grupo2 = new BULL_Group(2);
+        grupo2.setProfessor(prof2);
+        grupo2.setSchedule(horario2);
+        grupo2.setMaxCapacity(new BULL_MaxCapacity(25));
 
-        BULL_Group g2 = new BULL_Group(102);
-        g2.setProfessor(prof2);
-        g2.setSchedule(h2);
-        g2.setMaxCapacity(new BULL_MaxCapacity(25));
-
-        groupRepository.save(g1);
-        groupRepository.save(g2);
+        groupRepository.save(grupo1);
+        groupRepository.save(grupo2);
 
         BULL_OnSitePresencial presencial = new BULL_OnSitePresencial();
-        presencial.addGroup(g1);
-
-        BULL_SynchronousVirtualModality sincrona = new BULL_SynchronousVirtualModality();
-        sincrona.addGroup(g2);
-
+        presencial.addGroup(grupo1);
         modalityRepository.save(presencial);
-        modalityRepository.save(sincrona);
 
-        assignSpaceUseCase.asignarEspacio(101, "Edificio A", "101");
+        BULL_SynchronousVirtualModality virtual = new BULL_SynchronousVirtualModality();
+        virtual.addGroup(grupo2);
+        modalityRepository.save(virtual);
+
+        java.util.Date hoy   = new java.util.Date();
+        java.util.Date fin   = new java.util.Date(hoy.getTime() + 120L * 24 * 60 * 60 * 1000);
+        java.util.Date inicio = new java.util.Date(hoy.getTime() - 30L * 24 * 60 * 60 * 1000);
+
+        BULL_Semester semestre = new BULL_Semester(2025, 1, inicio, fin);
+        semestre.addModality(presencial);
+        semestre.addModality(virtual);
+        modulo1.addSemester(semestre);
+        modulo2.addSemester(semestre);
+
+        BULL_Student est1 = new BULL_Student("001", "Andrés",   "Torres",   "atorres@uni.edu",   3, "Ingeniería de Sistemas", false);
+        BULL_Student est2 = new BULL_Student("002", "María",    "Ramírez",  "mramirez@uni.edu",  2, "Ingeniería de Sistemas", false);
+        BULL_Student est3 = new BULL_Student("003", "Sofía",    "Vargas",   "svargas@uni.edu",   4, "Ingeniería de Sistemas", true);
+        studentRepository.save(est1);
+        studentRepository.save(est2);
+        studentRepository.save(est3);
+
+        BULL_Registration reg1 = new BULL_Registration(est1, grupo1);
+        grupo1.addRegistration(reg1);
+        est1.addRegistration(reg1);
+        registrationRepository.save(reg1);
+        studentRepository.save(est1);
+        groupRepository.save(grupo1);
+
+        BULL_Registration reg2 = new BULL_Registration(est2, grupo2);
+        grupo2.addRegistration(reg2);
+        est2.addRegistration(reg2);
+        registrationRepository.save(reg2);
+        studentRepository.save(est2);
+        groupRepository.save(grupo2);
+
     }
 
     // Módulos
-    public OperationResult crearModulo(int idModule, int courseNumber) {
-        return manageModuleUseCase.crearModulo(idModule, courseNumber);
+    public OperationResult crearModulo(int idCourse, int courseNumber) {
+        return manageCourseUseCase.crearModulo(idCourse, courseNumber);
     }
 
     public OperationResult consultarModulos() {
-        return manageModuleUseCase.consultarModulos();
+        return manageCourseUseCase.consultarModulos();
     }
 
-    public OperationResult consultarModuloPorId(int idModule) {
-        return manageModuleUseCase.consultarModuloPorId(idModule);
+    public OperationResult consultarModuloPorId(int idCourse) {
+        return manageCourseUseCase.consultarModuloPorId(idCourse);
     }
 
-    public OperationResult eliminarModulo(int idModule) {
-        return manageModuleUseCase.eliminarModulo(idModule);
+    public OperationResult eliminarModulo(int idCourse) {
+        return manageCourseUseCase.eliminarModulo(idCourse);
     }
 
     // Inscripciones
-    public List<ModuleOptionDTO> consultarModulosDisponibles(String universityCode) {
-        return checkModuleUseCase.consultarModulosDisponibles(universityCode);
+    public List<CourseOptionDTO> consultarModulosDisponibles(String universityCode) {
+        return checkCourseUseCase.consultarModulosDisponibles(universityCode);
     }
 
     public OperationResult inscribirEstudiante(String universityCode, int indiceOpcion) {
-        List<ModuleOptionDTO> opciones = checkModuleUseCase.consultarModulosDisponibles(universityCode);
+        List<CourseOptionDTO> opciones = checkCourseUseCase.consultarModulosDisponibles(universityCode);
         if (opciones.isEmpty())
             return OperationResult.fail("No hay módulos disponibles para el estudiante " + universityCode + ".");
         if (indiceOpcion < 0 || indiceOpcion >= opciones.size())
