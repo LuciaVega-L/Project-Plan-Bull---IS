@@ -2,12 +2,11 @@ package usecases.services;
 
 import entities.*;
 import infrastructure.repositories.*;
-import usecases.dto.CourseOptionDTO;
-import usecases.dto.OpenCallDTO;
-import usecases.dto.OperationResult;
+import usecases.dto.*;
 import usecases.ports.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlanBullApp {
 
@@ -31,7 +30,6 @@ public class PlanBullApp {
 
     public PlanBullApp() {
 
-        // --- Repositorios ---
         this.studentRepository      = new BULL_InMemoryStudentRepository();
         this.professorRepository    = new BULL_InMemoryProfessorRepository();
         this.courseRepository       = new BULL_InMemoryCourseRepository();
@@ -43,7 +41,6 @@ public class PlanBullApp {
         BULL_HomologationRepository homologationRepository = new BULL_InMemoryHomologationRepository();
         BULL_CallRepository         callRepository         = new BULL_InMemoryCallRepository();
 
-        // --- Casos de uso ---
         this.checkCourseUseCase = new CheckCourseUseCase(
                 studentRepository, courseRepository, modalityRepository, groupRepository);
 
@@ -74,27 +71,27 @@ public class PlanBullApp {
         cargarDatosIniciales();
     }
 
-    // Datos iniciales
-    public void cargarDatosIniciales() {
+    // ── Datos iniciales ───────────────────────────────────────────────────────
+    private void cargarDatosIniciales() {
 
-        BULL_Course modulo1 = new BULL_Course(1, 1);
-        BULL_Course modulo2 = new BULL_Course(2, 2);
-        courseRepository.save(modulo1);
-        courseRepository.save(modulo2);
+        BULL_Course course1 = new BULL_Course(01, 1);
+        BULL_Course course2 = new BULL_Course(02, 2);
+        courseRepository.save(course1);
+        courseRepository.save(course2);
 
-        BULL_Professor prof1 = new BULL_Professor("DOC-001", "Carlos Pérez",   "cperez@universidad.edu");
-        BULL_Professor prof2 = new BULL_Professor("DOC-002", "Laura Gómez",    "lgomez@universidad.edu");
+        BULL_Professor prof1 = new BULL_Professor("DOC-001", "Carlos Pérez",  "cperez@universidad.edu");
+        BULL_Professor prof2 = new BULL_Professor("DOC-002", "Laura Gómez",   "lgomez@universidad.edu");
         professorRepository.save(prof1);
         professorRepository.save(prof2);
 
         BULL_Schedule horario1 = new BULL_Schedule();
-        horario1.addTimeSlot("Lunes",    "07:00-09:00");
-        horario1.addTimeSlot("Miércoles","07:00-09:00");
+        horario1.addTimeSlot("Lunes",     "07:00-09:00");
+        horario1.addTimeSlot("Miércoles", "07:00-09:00");
         scheduleRepository.save("SCH-001", horario1);
 
         BULL_Schedule horario2 = new BULL_Schedule();
-        horario2.addTimeSlot("Martes",  "14:00-16:00");
-        horario2.addTimeSlot("Jueves",  "14:00-16:00");
+        horario2.addTimeSlot("Martes", "14:00-16:00");
+        horario2.addTimeSlot("Jueves", "14:00-16:00");
         scheduleRepository.save("SCH-002", horario2);
 
         BULL_Group grupo1 = new BULL_Group(1);
@@ -118,22 +115,30 @@ public class PlanBullApp {
         virtual.addGroup(grupo2);
         modalityRepository.save(virtual);
 
-        java.util.Date hoy   = new java.util.Date();
-        java.util.Date fin   = new java.util.Date(hoy.getTime() + 120L * 24 * 60 * 60 * 1000);
-        java.util.Date inicio = new java.util.Date(hoy.getTime() - 30L * 24 * 60 * 60 * 1000);
+        BULL_Ubication ubication1=new BULL_Ubication("Einstein","302");
+
+        grupo1.setUbication(ubication1,presencial);
+
+        java.util.Date hoy    = new java.util.Date();
+        java.util.Date fin    = new java.util.Date(hoy.getTime() + 120L * 24 * 60 * 60 * 1000);
+        java.util.Date inicio = new java.util.Date(hoy.getTime() -  30L * 24 * 60 * 60 * 1000);
 
         BULL_Semester semestre = new BULL_Semester(2025, 1, inicio, fin);
         semestre.addModality(presencial);
         semestre.addModality(virtual);
-        modulo1.addSemester(semestre);
-        modulo2.addSemester(semestre);
+        course1.addSemester(semestre);
+        course2.addSemester(semestre);
 
-        BULL_Student est1 = new BULL_Student("001", "Andrés",   "Torres",   "atorres@uni.edu",   3, "Ingeniería de Sistemas", false);
-        BULL_Student est2 = new BULL_Student("002", "María",    "Ramírez",  "mramirez@uni.edu",  2, "Ingeniería de Sistemas", false);
-        BULL_Student est3 = new BULL_Student("003", "Sofía",    "Vargas",   "svargas@uni.edu",   4, "Ingeniería de Sistemas", true);
+        BULL_Student est1 = new BULL_Student("160005240", "Andrés",  "Torres",  "atorres@uni.edu",  4, "Ingeniería de Sistemas", false);
+        BULL_Student est2 = new BULL_Student("160005220", "María",   "Ramírez", "mramirez@uni.edu", 5, "Ingeniería de Sistemas", false);
+        BULL_Student est3 = new BULL_Student("160005207", "Sofía",   "Vargas",  "svargas@uni.edu",  4, "Ingeniería de Sistemas", true);
+        BULL_Student est4 =  new BULL_Student("160005278","Daniel","Martinez","dmartinez@Unillanos.edu.co",5,"Ing Procesos",false);
+        BULL_Student est5 = new BULL_Student("160005225","Juan","Lopez","jlopez@unillanos.edu.co",2,"Veterinaria",false);
         studentRepository.save(est1);
         studentRepository.save(est2);
         studentRepository.save(est3);
+        studentRepository.save(est4);
+        studentRepository.save(est5);
 
         BULL_Registration reg1 = new BULL_Registration(est1, grupo1);
         grupo1.addRegistration(reg1);
@@ -148,80 +153,127 @@ public class PlanBullApp {
         registrationRepository.save(reg2);
         studentRepository.save(est2);
         groupRepository.save(grupo2);
-
     }
 
-    // Módulos
-    public OperationResult crearModulo(int idCourse, int courseNumber) {
-        return manageCourseUseCase.crearModulo(idCourse, courseNumber);
+    public OperationResult crearCourse(int idCourse, int courseNumber) {
+        return manageCourseUseCase.crearCourse(idCourse, courseNumber);
     }
 
-    public OperationResult consultarModulos() {
-        return manageCourseUseCase.consultarModulos();
+    public OperationResult consultarCourses() {
+        return manageCourseUseCase.consultarCourses();
     }
 
-    public OperationResult consultarModuloPorId(int idCourse) {
-        return manageCourseUseCase.consultarModuloPorId(idCourse);
+    public OperationResult consultarCoursePorId(int idCourse) {
+        return manageCourseUseCase.consultarCoursePorId(idCourse);
     }
 
-    public OperationResult eliminarModulo(int idCourse) {
-        return manageCourseUseCase.eliminarModulo(idCourse);
+    public OperationResult eliminarCourse(int idCourse) {
+        return manageCourseUseCase.eliminarCourse(idCourse);
     }
 
-    // Inscripciones
-    public List<CourseOptionDTO> consultarModulosDisponibles(String universityCode) {
-        return checkCourseUseCase.consultarModulosDisponibles(universityCode);
+
+    public List<CourseOptionDTO> consultarCoursesDisponibles(String universityCode) {
+        return checkCourseUseCase.consultarCoursesDisponibles(universityCode);
     }
 
     public OperationResult inscribirEstudiante(String universityCode, int indiceOpcion) {
-        List<CourseOptionDTO> opciones = checkCourseUseCase.consultarModulosDisponibles(universityCode);
+        List<CourseOptionDTO> opciones = checkCourseUseCase.consultarCoursesDisponibles(universityCode);
         if (opciones.isEmpty())
             return OperationResult.fail("No hay módulos disponibles para el estudiante " + universityCode + ".");
         if (indiceOpcion < 0 || indiceOpcion >= opciones.size())
             return OperationResult.fail(
                     "Opción " + (indiceOpcion + 1) + " no existe. Hay " + opciones.size() + " opción(es).");
-        return courseRegistrationUseCase.inscribirModulo(universityCode, opciones.get(indiceOpcion));
+        return courseRegistrationUseCase.inscribirCourse(universityCode, opciones.get(indiceOpcion));
     }
 
     public OperationResult cancelarInscripcion(String idRegistration, String universityCode) {
         return cancelInscriptionUseCase.cancelarInscripcion(idRegistration, universityCode);
     }
 
-    // Espacios
     public OperationResult asignarEspacio(int idGroup, String edificio, String aula) {
         return assignSpaceUseCase.asignarEspacio(idGroup, edificio, aula);
     }
 
-    // Notas
-    public OperationResult cargarNota(int idGroup, String idRegistration, GradeType tipo, double valor) {
-        return loadNotesUsecase.execute(idGroup, idRegistration, tipo, valor);
+    public OperationResult cargarNota(int idGroup, String universityCode, String tipoCorte, double valor) {
+        GradeType tipo;
+        try {
+            tipo = GradeType.valueOf(tipoCorte);
+        } catch (IllegalArgumentException e) {
+            return OperationResult.fail("Tipo de corte inválido: " + tipoCorte);
+        }
+        return loadNotesUsecase.execute(idGroup, universityCode, tipo, valor);
     }
 
-    // Homologaciones
     public OperationResult solicitarHomologacion(String universityCode, String fileName, String fileType) {
         return requestHomologationUseCase.execute(universityCode, fileName, fileType);
     }
 
-    public List<BULL_Homologation> listarHomologacionesPendientes() {
-        return validateHomologationUseCase.listPending();
+    public List<HomologationDTO> listarHomologacionesPendientes() {
+        return validateHomologationUseCase.listPending()
+                .stream()
+                .map(h -> new HomologationDTO(
+                        h.getStudent().getUniversityCode(),
+                        h.getStudent().getName() + " " + h.getStudent().getSurnames(),
+                        h.getCertificate().getFileName(),
+                        h.getCertificate().getFileType(),
+                        h.getStatus().name()))
+                .collect(Collectors.toList());
     }
 
-    public OperationResult aprobarHomologacion(String universityCode, int moduleNumber, String observation) {
-        return validateHomologationUseCase.approve(universityCode, moduleNumber, observation);
+    public OperationResult aprobarHomologacion(String universityCode, int courseNumber, String observation) {
+        return validateHomologationUseCase.approve(universityCode, courseNumber, observation);
     }
 
     public OperationResult rechazarHomologacion(String universityCode, String reason) {
         return validateHomologationUseCase.reject(universityCode, reason);
     }
 
-    // Convocatorias
     public OperationResult openCall(String callId, int year, int period, String description) {
         return openCallForApplicationsUseCase.open(new OpenCallDTO(callId, year, period, description));
     }
 
-    // Consultas generales
-    public List<BULL_Student>      getEstudiantes()    { return studentRepository.findAll(); }
-    public List<BULL_Professor>    getProfesores()     { return professorRepository.findAll(); }
-    public List<BULL_Registration> getInscripciones()  { return registrationRepository.findAll(); }
-    public List<BULL_Group>        getGrupos()         { return groupRepository.findAll(); }
+    public List<StudentDTO> getEstudiantes() {
+        return studentRepository.findAll()
+                .stream()
+                .map(s -> new StudentDTO(
+                        s.getUniversityCode(),
+                        s.getName() + " " + s.getSurnames(),
+                        s.getSemester(),
+                        s.isSpecialCondition()))
+                .collect(Collectors.toList());
+    }
+
+    public List<ProfessorDTO> getProfesores() {
+        return professorRepository.findAll()
+                .stream()
+                .map(p -> new ProfessorDTO(p.getIdTeaching(), p.getName(), p.getMail()))
+                .collect(Collectors.toList());
+    }
+
+    public List<RegistrationDTO> getInscripciones() {
+        return registrationRepository.findAll()
+                .stream()
+                .map(r -> new RegistrationDTO(
+                        r.getIdRegistration(),
+                        r.getStudent().getName() + " " + r.getStudent().getSurnames(),
+                        r.getGroup().getIdGroup(),
+                        r.getState()))
+                .collect(Collectors.toList());
+    }
+
+    public List<GroupDTO> getGrupos() {
+        return groupRepository.findAll()
+                .stream()
+                .map(g -> {
+                    String prof = g.getProfessor()   != null ? g.getProfessor().getName() : "Sin asignar";
+                    String cupos = g.getMaxCapacity() != null
+                            ? g.getMaxCapacity().getCuposRestantes() + "/" + g.getMaxCapacity().getMaxCapacity()
+                            : "N/A";
+                    String aula = g.getUbication()   != null
+                            ? g.getUbication().getBuilding() + " – " + g.getUbication().getClassroomNum()
+                            : "Virtual";
+                    return new GroupDTO(g.getIdGroup(), prof, cupos, aula);
+                })
+                .collect(Collectors.toList());
+    }
 }

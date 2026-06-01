@@ -15,7 +15,7 @@ public class ManageCourseUseCase {
         this.courseRepository = courseRepository;
     }
 
-    public OperationResult crearModulo(int idCourse, int courseNumber) {
+    public OperationResult crearCourse(int idCourse, int courseNumber) {
 
         if (idCourse <= 0) {
             return OperationResult.fail("El ID del módulo debe ser mayor a 0.");
@@ -48,7 +48,7 @@ public class ManageCourseUseCase {
         );
     }
 
-    public OperationResult consultarModulos() {
+    public OperationResult consultarCourses() {
 
         List<BULL_Course> cursos = courseRepository.findAll();
 
@@ -70,7 +70,7 @@ public class ManageCourseUseCase {
         return OperationResult.ok(mensaje.toString());
     }
 
-    public OperationResult consultarModuloPorId(int idCourse) {
+    public OperationResult consultarCoursePorId(int idCourse) {
 
         if (idCourse <= 0) {
             return OperationResult.fail("El ID del módulo debe ser mayor a 0.");
@@ -91,7 +91,7 @@ public class ManageCourseUseCase {
         );
     }
 
-    public OperationResult eliminarModulo(int idCourse) {
+    public OperationResult eliminarCourse(int idCourse) {
 
         if (idCourse <= 0) {
             return OperationResult.fail("El ID del módulo debe ser mayor a 0.");
