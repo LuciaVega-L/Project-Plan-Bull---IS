@@ -2,6 +2,7 @@ package adapters.ui;
 
 import usecases.dto.*;
 import usecases.services.PlanBullApp;
+import java.util.Map;
 
 import java.util.List;
 import java.util.Scanner;
@@ -32,6 +33,7 @@ public class Main {
             System.out.println("║  5. Ver datos del sistema            ║");
             System.out.println("║  6. Convocatorias                    ║");
             System.out.println("║  7. Homologaciones                   ║");
+            System.out.println("║  8. Calendarios (horarios)           ║");
             System.out.println("║  0. Salir                            ║");
             System.out.println("╚══════════════════════════════════════╝");
             System.out.print("Opción: ");
@@ -43,6 +45,7 @@ public class Main {
                 case 5: menuVerDatos();       break;
                 case 6: menuConvocatorias();  break;
                 case 7: menuHomologaciones(); break;
+                case 8: menuCalendarios();    break;
                 case 0: salir = true; System.out.println("Hasta pronto."); break;
                 default: System.out.println("[!] Opción no válida.\n");
             }
@@ -339,6 +342,44 @@ public class Main {
         System.out.print("Descripción: ");
         String description = leerTexto();
         mostrar(app.openCall(callId, year, period, description));
+    }
+    // ── Calendarios ───────────────────────────────────────────────────────────────
+    private static void menuCalendarios() {
+        boolean volver = false;
+        while (!volver) {
+            System.out.println("\n--- Calendarios ---");
+            System.out.println("1. Establecer calendario a un grupo");
+            System.out.println("0. Volver");
+            System.out.print("Opción: ");
+            switch (leerEntero()) {
+                case 1: establecerCalendario(); break;
+                case 0: volver = true;          break;
+                default: System.out.println("[!] Opción no válida.");
+            }
+        }
+    }
+
+    private static void establecerCalendario() {
+        System.out.print("ID del grupo: ");
+        int idGrupo = leerEntero();
+
+        System.out.print("ID del calendario (ej: CAL-2026-1): ");
+        String scheduleId = leerTexto();
+
+        Map<String, String> franjas = new java.util.LinkedHashMap<>();
+        System.out.println("Ingrese las franjas horarias.");
+        System.out.println("Deje el día en blanco para terminar.");
+        System.out.println("Formato: HH:MM-HH:MM  (ej: 07:00-09:00)");
+
+        while (true) {
+            System.out.print("Día (ej: Lunes): ");
+            String dia = leerTexto();
+            if (dia.isEmpty()) break;
+            System.out.print("Rango horario: ");
+            franjas.put(dia, leerTexto());
+        }
+
+        mostrar(app.establecerCalendario(idGrupo, scheduleId, franjas));
     }
 
     // ── Utilidades de consola ─────────────────────────────────────────────────
