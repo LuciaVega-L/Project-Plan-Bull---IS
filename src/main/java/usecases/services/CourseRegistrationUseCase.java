@@ -31,14 +31,14 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
     // -------------------------------------------------------------------------
     @Override
     public OperationResult registrar(String universityCode, CourseOptionDTO opcionElegida) {
-        return inscribirModulo(universityCode, opcionElegida);
+        return inscribirCourse(universityCode, opcionElegida);
     }
 
     // -------------------------------------------------------------------------
     // Caso de uso principal: registrar la elección que el estudiante ya hizo
     // Recibe el DTO que CheckCourseUseCase le presentó — NO re-consulta nada.
     // -------------------------------------------------------------------------
-    public OperationResult inscribirModulo(String universityCode, CourseOptionDTO opcionElegida) {
+    public OperationResult inscribirCourse(String universityCode, CourseOptionDTO opcionElegida) {
 
         // --- 1. Validar entradas básicas ---
         if (universityCode == null || universityCode.trim().isEmpty()) {
