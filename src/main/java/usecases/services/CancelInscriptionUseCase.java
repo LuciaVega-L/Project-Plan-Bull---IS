@@ -26,6 +26,7 @@ public class CancelInscriptionUseCase {
 
     public OperationResult cancelarInscripcion(String idRegistration, String universityCode) {
 
+        // Validaciones de entrada
         if (idRegistration == null || idRegistration.trim().isEmpty()) {
             return OperationResult.fail("El id de inscripción no puede estar vacío.");
         }
@@ -33,30 +34,35 @@ public class CancelInscriptionUseCase {
             return OperationResult.fail("El código universitario no puede estar vacío.");
         }
 
+        // Buscar la inscripción
         Optional<BULL_Registration> registrationOpt = registrationRepository.findByIdRegistration(idRegistration);
         if (!registrationOpt.isPresent()) {
             return OperationResult.fail("No se encontró la inscripción con id " + idRegistration + ".");
         }
         BULL_Registration registration = registrationOpt.get();
 
+        // Verificar que la inscripción pertenece al estudiante
         if (!registration.getStudent().getUniversityCode().equals(universityCode)) {
             return OperationResult.fail(
                     "La inscripción " + idRegistration + " no pertenece al estudiante con código " + universityCode + "."
             );
         }
 
+        // Verificar que la inscripción está activa
         if (!registration.estaActiva()) {
             return OperationResult.fail(
                     "La inscripción " + idRegistration + " no puede cancelarse porque su estado es: " + registration.getState() + "."
             );
         }
 
+        // Buscar el estudiante
         Optional<BULL_Student> estudianteOpt = studentRepository.findByUniversityCode(universityCode);
         if (!estudianteOpt.isPresent()) {
             return OperationResult.fail("No se encontró el estudiante con código " + universityCode + ".");
         }
         BULL_Student estudiante = estudianteOpt.get();
 
+        // Buscar el grupo y liberar el cupo
         BULL_Group grupo = registration.getGroup();
         Optional<BULL_Group> grupoOpt = groupRepository.findByIdGroup(grupo.getIdGroup());
         if (!grupoOpt.isPresent()) {
@@ -64,13 +70,16 @@ public class CancelInscriptionUseCase {
         }
         BULL_Group grupoEnRepo = grupoOpt.get();
 
+        // Cancelar la inscripción en la entidad
         registration.cancelar();
 
+        // Remover la inscripción del grupo (libera el cupo)
         OperationResult removeResult = grupoEnRepo.removeRegistration(idRegistration);
         if (!removeResult.isSuccess()) {
             return OperationResult.fail("Error al liberar el cupo del grupo: " + removeResult.getMessage());
         }
 
+        // Persistir cambios
         registrationRepository.save(registration);
         groupRepository.save(grupoEnRepo);
         studentRepository.save(estudiante);
