@@ -28,6 +28,7 @@ public class PlanBullApp {
     private final ValidateHomologationUseCase    validateHomologationUseCase;
     private final AnnounceCallForApplicationsUseCase announceCallUseCase;
     private final EstablishCalendarUseCase establishCalendarUseCase;
+    private final ManageGroupUseCase manageGroupUseCase;
 
     public PlanBullApp(BULL_StudentRepository studentRepository,
                        BULL_ProfessorRepository professorRepository,
@@ -45,7 +46,8 @@ public class PlanBullApp {
                        RequestHomologationUseCase requestHomologationUseCase,
                        ValidateHomologationUseCase validateHomologationUseCase,
                        AnnounceCallForApplicationsUseCase announceCallUseCase,
-                       EstablishCalendarUseCase establishCalendarUseCase
+                       EstablishCalendarUseCase establishCalendarUseCase,
+                       ManageGroupUseCase manageGroupUseCase
                        ) {
         this.studentRepository           = studentRepository;
         this.professorRepository         = professorRepository;
@@ -64,6 +66,7 @@ public class PlanBullApp {
         this.validateHomologationUseCase = validateHomologationUseCase;
         this.announceCallUseCase         = announceCallUseCase;
         this.establishCalendarUseCase    = establishCalendarUseCase;
+        this.manageGroupUseCase           = manageGroupUseCase;
     }
 
     public PlanBullApp() {
@@ -96,7 +99,8 @@ public class PlanBullApp {
         this.registrationRepository = registrationRepository;
 
         this.checkCourseUseCase = new CheckCourseUseCase(
-                studentRepository, courseRepository, modalityRepository, groupRepository);
+                studentRepository, courseRepository, modalityRepository,
+                groupRepository, homologationRepository);
 
         this.courseRegistrationUseCase = new CourseRegistrationUseCase(
                 groupRepository, studentRepository, registrationRepository,
@@ -114,10 +118,11 @@ public class PlanBullApp {
         this.requestHomologationUseCase = new RequestHomologationUseCase(
                 studentRepository, homologationRepository);
 
-        this.validateHomologationUseCase = new ValidateHomologationUseCase(homologationRepository);
+        this.validateHomologationUseCase = new ValidateHomologationUseCase(homologationRepository, studentRepository);
 
         this.announceCallUseCase      = new AnnounceCallForApplicationsUseCase(studentRepository);
         this.establishCalendarUseCase = new EstablishCalendarUseCase(groupRepository, scheduleRepository);
+        this.manageGroupUseCase = new ManageGroupUseCase(groupRepository, professorRepository, modalityRepository);
     }
 
     public OperationResult crearCourse(int idCourse, int courseNumber) {
@@ -204,6 +209,18 @@ public class PlanBullApp {
         return establishCalendarUseCase.establecerCalendario(idGroup, scheduleId, franjas);
     }
 
+    public OperationResult crearGrupo(int idGroup, String idTeaching, int maxCapacity,
+                                      String tipoModalidad, String edificio, String aula) {
+        return manageGroupUseCase.crearGrupo(idGroup, idTeaching, maxCapacity, tipoModalidad, edificio, aula);
+    }
+    public OperationResult consultarGrupos() {
+        return manageGroupUseCase.consultarGrupos();
+    }
+
+    public OperationResult eliminarGrupo(int idGroup) {
+        return manageGroupUseCase.eliminarGrupo(idGroup);
+    }
+
     public List<StudentDTO> getEstudiantes() {
         List<StudentDTO> result = new ArrayList<>();
         for (BULL_Student s : studentRepository.findAll()) {
@@ -232,14 +249,41 @@ public class PlanBullApp {
     public List<RegistrationDTO> getInscripciones() {
         List<RegistrationDTO> result = new ArrayList<>();
         for (BULL_Registration r : registrationRepository.findAll()) {
+            int courseNumber = buscarCourseNumberDeGrupo(r.getGroup());
             result.add(new RegistrationDTO(
                     r.getIdRegistration(),
                     r.getStudent().getName() + " " + r.getStudent().getSurnames(),
                     r.getGroup().getIdGroup(),
+                    courseNumber,
                     r.getState()
             ));
         }
         return result;
+    }
+
+    // Agregar este helper privado en PlanBullApp
+    private int buscarCourseNumberDeGrupo(BULL_Group grupo) {
+        for (BULL_Course course : courseRepository.findAll()) {
+            for (BULL_Semester sem : course.getSemesters()) {
+                for (BULL_Modality mod : sem.getModalities()) {
+                    for (BULL_Group g : mod.getGroups()) {
+                        if (g.getIdGroup() == grupo.getIdGroup())
+                            return course.getCourseNumber();
+                    }
+                }
+            }
+        }
+        // Si no está en semesters, buscar por modalidad directamente
+        for (BULL_Modality mod : modalityRepository.findAll()) {
+            for (BULL_Group g : mod.getGroups()) {
+                if (g.getIdGroup() == grupo.getIdGroup()) {
+                    for (BULL_Course course : courseRepository.findAll()) {
+                        if (course.getCourseNumber() >= 1) return course.getCourseNumber();
+                    }
+                }
+            }
+        }
+        return 0;
     }
 
     public List<GroupDTO> getGrupos() {
@@ -251,5 +295,33 @@ public class PlanBullApp {
             result.add(new GroupDTO(g.getIdGroup(), profesor, cupos, ubicacion));
         }
         return result;
+    }
+
+    public void cargarDatosPrueba() {
+        // Profesor
+        BULL_Professor prof = new BULL_Professor("DOC-001", "Carlos Pérez", "carlos@bull.edu");
+        professorRepository.save(prof);
+
+        // Estudiante (semestre 5 → le corresponde courseNumber 3)
+        BULL_Student est = new BULL_Student(
+                "160005207", "David", "Beltran",
+                "david@bull.edu", 5, "Sistemas", false
+        );
+        studentRepository.save(est);
+
+        // Curso (courseNumber 3 → semestre 5-6)
+        BULL_Course curso = new BULL_Course(1, 3);
+        courseRepository.save(curso);
+
+        // Grupo con cupo, sin inscribir
+        BULL_Group grupo = new BULL_Group(10);
+        grupo.setProfessor(prof);
+        grupo.setMaxCapacity(new BULL_MaxCapacity(30));
+        groupRepository.save(grupo);
+
+        // Modalidad presencial con ese grupo
+        BULL_OnSitePresencial modalidad = new BULL_OnSitePresencial();
+        modalidad.addGroup(grupo);
+        modalityRepository.save(modalidad);
     }
 }

@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94108d16-db09-4496-84fd-40e01de8fbf2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/usecases/services/CheckCourseUseCaseTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/usecases/services/ManageCourseUseCaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/usecases/services/ManageGroupUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_StudentRegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_StudentRegistrationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/CheckModuleUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/CourseRegistrationUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/CourseRegistrationUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plan-bull.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/adapters.ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/adapters.ui/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/dto/RegistrationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/dto/RegistrationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/CheckCourseUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/CheckCourseUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/EstablishCalendarUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/EstablishCalendarUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/PlanBullApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/PlanBullApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/usecases/services/CheckModuleUseCaseTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/usecases/services/CourseRegistrationUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/usecases/services/CourseRegistrationUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/usecases/services/ManageModuleUseCaseTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/ValidateHomologationUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/ValidateHomologationUseCase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +30,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -70,12 +70,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "adding-usecases-new",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",

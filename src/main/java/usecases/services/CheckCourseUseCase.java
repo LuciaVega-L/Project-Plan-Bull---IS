@@ -16,14 +16,18 @@ public class CheckCourseUseCase implements BULL_StudentRegistrationService.Check
     private final BULL_ModalityRepository modalityRepository;
     private final BULL_GroupRepository    groupRepository;
 
+    private final BULL_HomologationRepository homologationRepository;
+
     public CheckCourseUseCase(BULL_StudentRepository studentRepository,
                               BULL_CourseRepository courseRepository,
                               BULL_ModalityRepository modalityRepository,
-                              BULL_GroupRepository groupRepository) {
-        this.studentRepository  = studentRepository;
-        this.courseRepository   = courseRepository;
-        this.modalityRepository = modalityRepository;
-        this.groupRepository    = groupRepository;
+                              BULL_GroupRepository groupRepository,
+                              BULL_HomologationRepository homologationRepository) {
+        this.studentRepository      = studentRepository;
+        this.courseRepository       = courseRepository;
+        this.modalityRepository     = modalityRepository;
+        this.groupRepository        = groupRepository;
+        this.homologationRepository = homologationRepository;
     }
 
     @Override
@@ -45,6 +49,15 @@ public class CheckCourseUseCase implements BULL_StudentRegistrationService.Check
         if (estudiante.tieneInscripcionActiva()) return opciones;
 
         int maxAprobado = 0;
+
+// Primero: homologación aprobada tiene prioridad
+        Optional<BULL_Homologation> homologacion =
+                homologationRepository.findApprovedByStudent(universityCode);
+        if (homologacion.isPresent()) {
+            maxAprobado = homologacion.get().getApprovedModule();
+        }
+
+// Luego: inscripciones finalizadas (puede haber avanzado más allá de la homologación)
         for (BULL_Registration reg : estudiante.getRegistrations()) {
             if (BULL_Registration.STATE_FINALIZADA.equals(reg.getState())) {
                 int courseNumberAprobado = buscarCourseNumberDeGrupo(reg.getGroup());
