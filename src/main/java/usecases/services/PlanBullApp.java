@@ -157,13 +157,16 @@ public class PlanBullApp {
         return courseRegistrationUseCase.inscribirCourse(universityCode, opciones.get(indiceOpcion));
     }
 
-    public OperationResult cancelarInscripcion(String idRegistration, String universityCode) {
-        return cancelInscriptionUseCase.cancelarInscripcion(idRegistration, universityCode);
+    public OperationResult cancelarInscripcion(String universityCode) {
+        return cancelInscriptionUseCase.cancelarInscripcion(universityCode);
     }
 
     public OperationResult asignarEspacio(int idGroup, String edificio, String aula) {
         return assignSpaceUseCase.asignarEspacio(idGroup, edificio, aula);
     }
+
+
+
 
     public OperationResult cargarNota(int idGroup, String idRegistration, GradeType tipo, double valor) {
         return loadNotesUsecase.execute(idGroup, idRegistration, tipo, valor);
@@ -245,18 +248,36 @@ public class PlanBullApp {
         }
         return result;
     }
-
     public List<RegistrationDTO> getInscripciones() {
         List<RegistrationDTO> result = new ArrayList<>();
         for (BULL_Registration r : registrationRepository.findAll()) {
             int courseNumber = buscarCourseNumberDeGrupo(r.getGroup());
             result.add(new RegistrationDTO(
                     r.getIdRegistration(),
+                    r.getStudent().getUniversityCode(),
                     r.getStudent().getName() + " " + r.getStudent().getSurnames(),
                     r.getGroup().getIdGroup(),
                     courseNumber,
                     r.getState()
             ));
+        }
+        return result;
+    }
+
+    public List<RegistrationDTO> getInscripcionesActivasPorGrupo(int idGroup) {
+        List<RegistrationDTO> result = new ArrayList<>();
+        for (BULL_Registration r : registrationRepository.findAll()) {
+            if (r.getGroup().getIdGroup() == idGroup && r.estaActiva()) {
+                int courseNumber = buscarCourseNumberDeGrupo(r.getGroup());
+                result.add(new RegistrationDTO(
+                        r.getIdRegistration(),
+                        r.getStudent().getUniversityCode(),
+                        r.getStudent().getName() + " " + r.getStudent().getSurnames(),
+                        r.getGroup().getIdGroup(),
+                        courseNumber,
+                        r.getState()
+                ));
+            }
         }
         return result;
     }
@@ -308,6 +329,12 @@ public class PlanBullApp {
         );
         studentRepository.save(est);
 
+        BULL_Student est1 = new BULL_Student(
+                "160005236", "Daniel", "Santos",
+                "dasant@bull.edu", 5, "Sistemas", false
+        );
+        studentRepository.save(est1);
+
         BULL_Group grupo = new BULL_Group(10);
         grupo.setProfessor(prof);
         grupo.setMaxCapacity(new BULL_MaxCapacity(30));
@@ -321,6 +348,18 @@ public class PlanBullApp {
         modalidad.addGroup(grupo);
         modalityRepository.save(modalidad);
 
+        BULL_Group grupo2 = new BULL_Group(20);
+        grupo2.setProfessor(prof);
+        grupo2.setMaxCapacity(new BULL_MaxCapacity(30));
+        BULL_Schedule horario2 = new BULL_Schedule();
+        horario2.addTimeSlot("Lunes", "07:00-09:00");
+        horario2.addTimeSlot("Miércoles", "07:00-09:00");
+        grupo2.setSchedule(horario2);
+        groupRepository.save(grupo2);
+
+        BULL_OnSitePresencial modalidad1 = new BULL_OnSitePresencial();
+        modalidad1.addGroup(grupo2);
+
         BULL_Semester semestre = new BULL_Semester(2026, 1,
                 new java.util.Date(125, 0, 1),
                 new java.util.Date(126, 5, 30));
@@ -329,5 +368,7 @@ public class PlanBullApp {
         BULL_Course curso = new BULL_Course(1, 1);
         curso.addSemester(semestre);
         courseRepository.save(curso);
+
+
     }
 }

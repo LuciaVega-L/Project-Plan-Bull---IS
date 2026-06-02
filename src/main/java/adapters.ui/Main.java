@@ -1,8 +1,11 @@
 package adapters.ui;
 
+import entities.BULL_Registration;
 import entities.GradeType;
 import usecases.dto.*;
 import usecases.services.PlanBullApp;
+
+import java.util.ArrayList;
 import java.util.Map;
 
 import java.util.List;
@@ -136,11 +139,9 @@ public class Main {
     }
 
     private static void cancelarInscripcion() {
-        System.out.print("ID de la inscripción: ");
-        String idReg = leerTexto();
         System.out.print("Código universitario del estudiante: ");
         String codigo = leerTexto();
-        mostrar(app.cancelarInscripcion(idReg, codigo));
+        mostrar(app.cancelarInscripcion(codigo));
     }
 
     private static void imprimirOpciones(List<CourseOptionDTO> opciones) {
@@ -173,8 +174,12 @@ public class Main {
         System.out.println("\n--- Cargar nota ---");
         System.out.print("ID del grupo: ");
         int idGrupo = leerEntero();
-        System.out.print("Código universitario del estudiante: ");
-        String universityCode = leerTexto();
+
+        List<RegistrationDTO> inscritos = app.getInscripcionesActivasPorGrupo(idGrupo);
+        if (inscritos.isEmpty()) {
+            System.out.println("[INFO] No hay estudiantes con inscripción activa en el grupo " + idGrupo + ". Carga de notas cancelada.");
+            return;
+        }
 
         System.out.println("Tipo de corte:");
         System.out.println("  1. PRIMER_CORTE  (30%)");
@@ -182,18 +187,25 @@ public class Main {
         System.out.println("  3. TERCER_CORTE  (40%)");
         System.out.print("Opción: ");
         int opcionCorte = leerEntero();
-
         GradeType[] tipos = {GradeType.PRIMER_CORTE, GradeType.SEGUNDO_CORTE, GradeType.TERCER_CORTE};
         if (opcionCorte < 1 || opcionCorte > 3) {
             System.out.println("[!] Opción de corte no válida.");
             return;
         }
+        GradeType corte = tipos[opcionCorte - 1];
 
-        System.out.println("[INFO] Cargando nota para estudiante " + universityCode +
-                " en grupo " + idGrupo + ".");
-        System.out.print("Valor de la nota (0.0 - 5.0): ");
-        double nota = leerDouble();
-        mostrar(app.cargarNota(idGrupo, universityCode, tipos[opcionCorte - 1], nota));
+        System.out.println("\nEstudiantes inscritos en el grupo " + idGrupo + ":");
+        for (int i = 0; i < inscritos.size(); i++) {
+            RegistrationDTO r = inscritos.get(i);
+            System.out.printf("  [%d] %-12s | %s%n", i + 1, r.getUniversityCode(), r.getStudentFullName());
+        }
+
+        System.out.println("\nIngrese la nota (0.0 - 5.0) para cada estudiante:");
+        for (RegistrationDTO r : inscritos) {
+            System.out.printf("  %s - %s → Nota: ", r.getUniversityCode(), r.getStudentFullName());
+            double nota = leerDouble();
+            mostrar(app.cargarNota(idGrupo, r.getUniversityCode(), corte, nota));
+        }
     }
 
     // ── Ver datos del sistema ─────────────────────────────────────────────────
@@ -356,18 +368,56 @@ public class Main {
     }
 
     private static void aprobarHomologacion() {
-        System.out.print("Código universitario del estudiante: ");
-        String codigo = leerTexto();
+        List<HomologationDTO> pendientes = app.listarHomologacionesPendientes();
+        if (pendientes.isEmpty()) {
+            System.out.println("[INFO] No hay homologaciones pendientes.");
+            return;
+        }
+        System.out.println("\nSolicitudes pendientes:");
+        for (int i = 0; i < pendientes.size(); i++) {
+            HomologationDTO h = pendientes.get(i);
+            System.out.printf("  [%d] %-12s | %-25s | Archivo: %s (%s)%n",
+                    i + 1, h.getUniversityCode(), h.getStudentFullName(),
+                    h.getFileName(), h.getFileType());
+        }
+        System.out.print("Seleccione el número de la solicitud a aprobar (0 para cancelar): ");
+        int seleccion = leerEntero();
+        if (seleccion == 0) return;
+        if (seleccion < 1 || seleccion > pendientes.size()) {
+            System.out.println("[!] Selección no válida.");
+            return;
+        }
+        String codigo = pendientes.get(seleccion - 1).getUniversityCode();
+        System.out.println("Estudiante seleccionado: " + pendientes.get(seleccion - 1).getStudentFullName() + " (" + codigo + ")");
         System.out.print("Número de módulo homologado: ");
         int modulo = leerEntero();
-        System.out.print("Observación: ");
+        System.out.print("Observación (Enter para omitir): ");
         String observacion = leerTexto();
         mostrar(app.aprobarHomologacion(codigo, modulo, observacion));
     }
 
     private static void rechazarHomologacion() {
-        System.out.print("Código universitario del estudiante: ");
-        String codigo = leerTexto();
+        List<HomologationDTO> pendientes = app.listarHomologacionesPendientes();
+        if (pendientes.isEmpty()) {
+            System.out.println("[INFO] No hay homologaciones pendientes.");
+            return;
+        }
+        System.out.println("\nSolicitudes pendientes:");
+        for (int i = 0; i < pendientes.size(); i++) {
+            HomologationDTO h = pendientes.get(i);
+            System.out.printf("  [%d] %-12s | %-25s | Archivo: %s (%s)%n",
+                    i + 1, h.getUniversityCode(), h.getStudentFullName(),
+                    h.getFileName(), h.getFileType());
+        }
+        System.out.print("Seleccione el número de la solicitud a rechazar (0 para cancelar): ");
+        int seleccion = leerEntero();
+        if (seleccion == 0) return;
+        if (seleccion < 1 || seleccion > pendientes.size()) {
+            System.out.println("[!] Selección no válida.");
+            return;
+        }
+        String codigo = pendientes.get(seleccion - 1).getUniversityCode();
+        System.out.println("Estudiante seleccionado: " + pendientes.get(seleccion - 1).getStudentFullName() + " (" + codigo + ")");
         System.out.print("Razón del rechazo: ");
         String razon = leerTexto();
         mostrar(app.rechazarHomologacion(codigo, razon));
