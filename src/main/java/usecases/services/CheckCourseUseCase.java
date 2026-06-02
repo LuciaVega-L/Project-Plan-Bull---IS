@@ -15,7 +15,6 @@ public class CheckCourseUseCase implements BULL_StudentRegistrationService.Check
     private final BULL_CourseRepository   courseRepository;
     private final BULL_ModalityRepository modalityRepository;
     private final BULL_GroupRepository    groupRepository;
-
     private final BULL_HomologationRepository homologationRepository;
 
     public CheckCourseUseCase(BULL_StudentRepository studentRepository,
@@ -44,20 +43,23 @@ public class CheckCourseUseCase implements BULL_StudentRegistrationService.Check
 
         BULL_Student estudiante = estudianteOpt.get();
 
-        if (!estudiante.puedeInscribirCourses()) {System.out.println("El estudiante no cumple los requisitos."); return opciones;}
+        if (!estudiante.puedeInscribirCourses()) {
+            System.out.println("El estudiante no cumple los requisitos de semestre.");
+            return opciones;
+        }
 
         if (estudiante.tieneInscripcionActiva()) return opciones;
 
         int maxAprobado = 0;
 
-// Primero: homologación aprobada tiene prioridad
+        // Primero: homologación aprobada tiene prioridad
         Optional<BULL_Homologation> homologacion =
                 homologationRepository.findApprovedByStudent(universityCode);
         if (homologacion.isPresent()) {
             maxAprobado = homologacion.get().getApprovedModule();
         }
 
-// Luego: inscripciones finalizadas (puede haber avanzado más allá de la homologación)
+        // Luego: inscripciones finalizadas (puede haber avanzado más allá de la homologación)
         for (BULL_Registration reg : estudiante.getRegistrations()) {
             if (BULL_Registration.STATE_FINALIZADA.equals(reg.getState())) {
                 int courseNumberAprobado = buscarCourseNumberDeGrupo(reg.getGroup());
@@ -72,36 +74,37 @@ public class CheckCourseUseCase implements BULL_StudentRegistrationService.Check
         BULL_Course courseDelEstudiante = buscarCursoPorCourseNumber(courseNumberRequerido);
         if (courseDelEstudiante == null) return opciones;
 
-        List<BULL_Group>    todosGrupos = groupRepository.findAll();
         List<BULL_Modality> modalidades = modalityRepository.findAll();
 
-        for (BULL_Group grupo : todosGrupos) {
+        // Solo iterar grupos que pertenecen al curso del estudiante
+        for (BULL_Semester sem : courseDelEstudiante.getSemesters()) {
+            for (BULL_Modality modalidad : sem.getModalities()) {
+                for (BULL_Group grupo : modalidad.getGroups()) {
 
-            if (!tieneCupoYConfiguracion(grupo)) continue;
+                    if (!tieneCupoYConfiguracion(grupo)) continue;
 
-            BULL_Modality modalidad = buscarModalidadDeGrupo(modalidades, grupo);
-            if (modalidad == null) continue;
+                    boolean esPresencial = modalidad instanceof BULL_OnSitePresencial;
+                    String  ubicacion    = null;
+                    String  numAula      = null;
 
-            boolean esPresencial = modalidad instanceof BULL_OnSitePresencial;
-            String  ubicacion    = null;
-            String  numAula      = null;
+                    if (esPresencial && grupo.getUbication() != null) {
+                        ubicacion = grupo.getUbication().getBuilding();
+                        numAula   = grupo.getUbication().getClassroomNum();
+                    }
 
-            if (esPresencial && grupo.getUbication() != null) {
-                ubicacion = grupo.getUbication().getBuilding();
-                numAula   = grupo.getUbication().getClassroomNum();
+                    opciones.add(new CourseOptionDTO(
+                            courseDelEstudiante.getIdCourse(),
+                            courseDelEstudiante.getCourseNumber(),
+                            modalidad.getMode(),
+                            grupo.getIdGroup(),
+                            grupo.getMaxCapacity().getCuposRestantes(),
+                            grupo.getSchedule().getHourlay().toString(),
+                            esPresencial,
+                            ubicacion,
+                            numAula
+                    ));
+                }
             }
-
-            opciones.add(new CourseOptionDTO(
-                    courseDelEstudiante.getIdCourse(),
-                    courseDelEstudiante.getCourseNumber(),
-                    modalidad.getMode(),
-                    grupo.getIdGroup(),
-                    grupo.getMaxCapacity().getCuposRestantes(),
-                    grupo.getSchedule().getHourlay().toString(),
-                    esPresencial,
-                    ubicacion,
-                    numAula
-            ));
         }
 
         return opciones;
@@ -161,14 +164,5 @@ public class CheckCourseUseCase implements BULL_StudentRegistrationService.Check
                 && grupo.getSchedule()    != null
                 && grupo.getMaxCapacity() != null
                 && grupo.getProfessor()   != null;
-    }
-
-    private BULL_Modality buscarModalidadDeGrupo(List<BULL_Modality> modalidades, BULL_Group grupo) {
-        for (BULL_Modality modalidad : modalidades) {
-            for (BULL_Group g : modalidad.getGroups()) {
-                if (g.getIdGroup() == grupo.getIdGroup()) return modalidad;
-            }
-        }
-        return null;
     }
 }
