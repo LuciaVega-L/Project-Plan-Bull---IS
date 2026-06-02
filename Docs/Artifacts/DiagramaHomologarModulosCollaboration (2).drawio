@@ -1,0 +1,219 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Pagina-1" id="HomologarModulosCollab">
+    <mxGraphModel grid="0" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;" value="Collaboration Diagram – Validar Homologacion de Modulos" vertex="1">
+          <mxGeometry height="30" width="700" x="200" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="actor1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Coordinator" vertex="1">
+          <mxGeometry height="60" width="30" x="80" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="boundary1" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;" value="Coordinator&lt;br&gt;View" vertex="1">
+          <mxGeometry height="80" width="100" x="220" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ctrl1" parent="1" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" value="Validate&lt;div&gt;Homologation&lt;/div&gt;&lt;div&gt;Control&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="90" x="450" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="entity1" parent="1" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" value="BULL_&lt;div&gt;Homologation&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="90" x="910" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="repo1" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;" value="InMemory&lt;div&gt;Homologation&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="110" x="670" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="lifeline1" edge="1" parent="1" source="actor1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="boundary1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lifeline2" edge="1" parent="1" source="boundary1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" target="ctrl1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lifeline3" edge="1" parent="1" source="ctrl1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lifeline4" edge="1" parent="1" source="entity1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="150" as="sourcePoint" />
+            <mxPoint x="770" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr1" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="130" as="sourcePoint" />
+            <mxPoint x="210" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lbl1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1. Clic ver solicitudes pendientes" vertex="1">
+          <mxGeometry height="28" width="140" x="92.5" y="99" as="geometry" />
+        </mxCell>
+        <mxCell id="arr2" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="328.5" y="130" as="sourcePoint" />
+            <mxPoint x="451.5" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lbl2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2. listPending()" vertex="1">
+          <mxGeometry height="24" width="120" x="330" y="103" as="geometry" />
+        </mxCell>
+        <mxCell id="arr3" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="131.63" as="sourcePoint" />
+            <mxPoint x="910" y="131.63" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lbl3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3. findByStatus(PENDIENTE)" vertex="1">
+          <mxGeometry height="10" width="170" x="520" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4. List de homologaciones pendientes" vertex="1">
+          <mxGeometry height="24" width="130" x="800" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="arr5" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;endFill=0;startArrow=classic;startFill=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="280" as="sourcePoint" />
+            <mxPoint x="140" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr5b" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;endFill=0;startArrow=classic;startFill=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="130" as="sourcePoint" />
+            <mxPoint x="540" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lbl5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="7. Muestra lista de solicitudes pendientes" vertex="1">
+          <mxGeometry height="24" width="140" x="320" y="182" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="8. Ver la lista" vertex="1">
+          <mxGeometry height="28" width="115" x="117.5" y="182" as="geometry" />
+        </mxCell>
+        <mxCell id="arr7" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="310" as="sourcePoint" />
+            <mxPoint x="640" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr8" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="340" as="sourcePoint" />
+            <mxPoint x="510" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lbl8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="11.&amp;nbsp; findByStudent(universityCode)" vertex="1">
+          <mxGeometry height="24" width="70" x="540" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl9" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="12. Save(homologacion&lt;div&gt;actualizada)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="24" width="215" x="705" y="292" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="10. isPending() → approve(module, obs) | reject(reason)" vertex="1">
+          <mxGeometry height="28" width="140" x="260" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl11" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;div&gt;14. Devuelve homologación&lt;/div&gt;&lt;div&gt;actualizada&lt;/div&gt;" vertex="1">
+          <mxGeometry height="24" width="140" x="505" y="353" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="15. OperationResult.ok(confirmacion)" vertex="1">
+          <mxGeometry height="24" width="160" x="260" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-1" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="910" y="170" as="sourcePoint" />
+            <mxPoint x="790" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-2" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;endFill=0;startArrow=classic;startFill=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="170" as="sourcePoint" />
+            <mxPoint x="660" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-3" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;endFill=0;startArrow=classic;startFill=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="320" y="170" as="sourcePoint" />
+            <mxPoint x="440" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-4" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="170" as="sourcePoint" />
+            <mxPoint x="130" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-5" parent="1" style="text;whiteSpace=wrap;html=1;" value="5. obtener lista" vertex="1">
+          <mxGeometry height="26" width="85" x="815" y="174" as="geometry" />
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-8" parent="1" style="text;whiteSpace=wrap;" value="6. Muestra lista de solicitudes pendientes" vertex="1">
+          <mxGeometry height="40" width="140" x="560" y="174" as="geometry" />
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-9" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;" value="Coordinator&lt;br&gt;View" vertex="1">
+          <mxGeometry height="80" width="100" x="170" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-11" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="329.64" as="sourcePoint" />
+            <mxPoint x="400" y="329.64" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-12" parent="1" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" value="Validate&lt;div&gt;Homologation&lt;/div&gt;&lt;div&gt;Control&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="90" x="400" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-16" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;" value="InMemory&lt;div&gt;Homologation&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="110" x="652.5" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-17" parent="1" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" value="BULL_&lt;div&gt;Homologation&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="90" x="870" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-22" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;entryX=0.05;entryY=0.506;entryDx=0;entryDy=0;entryPerimeter=0;" target="aJv_cBlUbHzf64UpM4Ho-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="329.58" as="sourcePoint" />
+            <mxPoint x="620" y="329.58" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-23" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="770" y="330" as="sourcePoint" />
+            <mxPoint x="870" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aJv_cBlUbHzf64UpM4Ho-24" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="770" y="320" as="sourcePoint" />
+            <mxPoint x="870" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GDa70WlBW7ne55SOiSRP-2" parent="1" style="text;whiteSpace=wrap;" value="13. status = APROVADO | RECHAZADO" vertex="1">
+          <mxGeometry height="40" width="120" x="780" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="GDa70WlBW7ne55SOiSRP-5" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="340" as="sourcePoint" />
+            <mxPoint x="270" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GDa70WlBW7ne55SOiSRP-6" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="290" as="sourcePoint" />
+            <mxPoint x="117.5" y="224" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GDa70WlBW7ne55SOiSRP-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="16. &quot;Homologación exitosa." vertex="1">
+          <mxGeometry height="44" width="100" x="40" y="254" as="geometry" />
+        </mxCell>
+        <mxCell id="GDa70WlBW7ne55SOiSRP-11" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="9. Selecciona aprobar / rechazar" vertex="1">
+          <mxGeometry height="28" width="115" x="162.5" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GDa70WlBW7ne55SOiSRP-12" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="314" as="sourcePoint" />
+            <mxPoint x="410" y="314" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S2LNJWfcKq4QBJ6zJRcS-2" edge="1" parent="1" source="aJv_cBlUbHzf64UpM4Ho-9" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="177.39999999999998" y="330.00000000000006" as="sourcePoint" />
+            <mxPoint x="117.5" y="191.92" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
