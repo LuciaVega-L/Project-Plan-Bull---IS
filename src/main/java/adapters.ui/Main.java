@@ -16,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
         app = new PlanBullApp();
+        app.cargarDatosPrueba();
         System.out.println("=== PlanBull iniciado ===\n");
         menuPrincipal();
     }
@@ -35,6 +36,7 @@ public class Main {
             System.out.println("║  6. Convocatorias                    ║");
             System.out.println("║  7. Homologaciones                   ║");
             System.out.println("║  8. Calendarios (horarios)           ║");
+            System.out.println("║  9. Grupos                           ║");
             System.out.println("║  0. Salir                            ║");
             System.out.println("╚══════════════════════════════════════╝");
             System.out.print("Opción: ");
@@ -47,6 +49,7 @@ public class Main {
                 case 6: menuConvocatorias();  break;
                 case 7: menuHomologaciones(); break;
                 case 8: menuCalendarios();    break;
+                case 9: menuGrupos();         break;
                 case 0: salir = true; System.out.println("Hasta pronto."); break;
                 default: System.out.println("[!] Opción no válida.\n");
             }
@@ -186,6 +189,8 @@ public class Main {
             return;
         }
 
+        System.out.println("[INFO] Cargando nota para estudiante " + universityCode +
+                " en grupo " + idGrupo + ".");
         System.out.print("Valor de la nota (0.0 - 5.0): ");
         double nota = leerDouble();
         mostrar(app.cargarNota(idGrupo, universityCode, tipos[opcionCorte - 1], nota));
@@ -213,6 +218,56 @@ public class Main {
         }
     }
 
+    private static void menuGrupos() {
+        boolean volver = false;
+        while (!volver) {
+            System.out.println("\n--- Grupos ---");
+            System.out.println("1. Crear grupo");
+            System.out.println("2. Consultar grupos");
+            System.out.println("3. Eliminar grupo");
+            System.out.println("0. Volver");
+            System.out.print("Opción: ");
+            switch (leerEntero()) {
+                case 1: crearGrupo();      break;
+                case 2: mostrar(app.consultarGrupos()); break;
+                case 3: eliminarGrupo();   break;
+                case 0: volver = true;     break;
+                default: System.out.println("[!] Opción no válida.");
+            }
+        }
+    }
+
+    private static void crearGrupo() {
+        System.out.println("\n--- Crear grupo ---");
+        System.out.print("ID del grupo: ");
+        int idGroup = leerEntero();
+        System.out.print("ID docente del profesor: ");
+        String idTeaching = leerTexto();
+        System.out.print("Cupo máximo: ");
+        int maxCapacity = leerEntero();
+        System.out.println("Modalidad: 1-Presencial  2-Virtual Sincrónica  3-Virtual Asincronica");
+        System.out.print("Opción: ");
+        String modalidad = leerTexto();
+
+        String edificio = null;
+        String aula     = null;
+        if (modalidad.equals("1") || modalidad.equalsIgnoreCase("Presencial")) {
+            System.out.print("Edificio: ");
+            edificio = leerTexto();
+            System.out.print("Número de aula: ");
+            aula = leerTexto();
+        }
+
+        mostrar(app.crearGrupo(idGroup, idTeaching, maxCapacity, modalidad, edificio, aula));
+    }
+
+    private static void eliminarGrupo() {
+        System.out.println("\n--- Eliminar grupo ---");
+        System.out.print("ID del grupo: ");
+        int idGroup = leerEntero();
+        mostrar(app.eliminarGrupo(idGroup));
+    }
+
     private static void listarEstudiantes() {
         List<StudentDTO> lista = app.getEstudiantes();
         if (lista.isEmpty()) { System.out.println("No hay estudiantes."); return; }
@@ -238,8 +293,9 @@ public class Main {
         if (lista.isEmpty()) { System.out.println("No hay inscripciones."); return; }
         System.out.println("\nInscripciones:");
         for (RegistrationDTO r : lista) {
-            System.out.printf("  %s | %-25s | Grupo: %d | Estado: %s%n",
-                    r.getIdRegistration(), r.getStudentFullName(), r.getIdGroup(), r.getState());
+            System.out.printf("  %s | %-25s | Módulo: %-2d | Grupo: %-4d | Estado: %s%n",
+                    r.getIdRegistration(), r.getStudentFullName(),
+                    r.getCourseNumber(), r.getIdGroup(), r.getState());
         }
     }
 
