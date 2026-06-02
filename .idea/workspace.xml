@@ -5,18 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94108d16-db09-4496-84fd-40e01de8fbf2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/usecases/services/CheckCourseUseCaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/usecases/services/ManageCourseUseCaseTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/adapters.ui/prueba.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryCourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryCourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryGroupRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryGroupRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryHomologationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryHomologationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryModalityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryModalityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryProfessorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryProfessorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryRegistrationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryRegistrationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryScheduleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure.repositories/BULL_InMemoryStudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/repositories/BULL_InMemoryStudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_StudentRegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/ports/BULL_StudentRegistrationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/CheckModuleUseCase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/CourseRegistrationUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/CourseRegistrationUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/usecases/services/PlanBullApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/usecases/services/PlanBullApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/usecases/services/CheckModuleUseCaseTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/usecases/services/CourseRegistrationUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/usecases/services/CourseRegistrationUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/usecases/services/ManageModuleUseCaseTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="61" />
+    <option name="cachedIndexableFilesCount" value="98" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -33,24 +31,25 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "FelipeBeltranING"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;FelipeBeltranING&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/LuciaVega-L/Project-Plan-Bull---IS.git",
-    "accountId": "1e4c214b-ebf3-4a5d-ba0c-2d5e760db633"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LuciaVega-L/Project-Plan-Bull---IS.git&quot;,
+    &quot;accountId&quot;: &quot;1e4c214b-ebf3-4a5d-ba0c-2d5e760db633&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -74,6 +73,8 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
@@ -89,6 +90,12 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\david\OneDrive\Documents\GitHub\Project-Plan-Bull---IS\src\main\java\infrastructure\repositories" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="usecases.services" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">

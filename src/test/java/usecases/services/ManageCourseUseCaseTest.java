@@ -8,91 +8,91 @@ import usecases.ports.BULL_CourseRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ManageModuleUseCaseTest {
+class ManageCourseUseCaseTest {
 
     @Test
-    void crearModulo_creaModuloCorrectamente() {
+    void crearCourse_creaCourseCorrectamente() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.crearModulo(1, 1);
+                useCase.crearCourse(1, 1);
 
         assertTrue(result.isSuccess());
 
         assertTrue(
-                repo.findByIdModule(1).isPresent()
+                repo.findByIdCourse(1).isPresent()
         );
     }
 
     @Test
-    void crearModulo_falla_siIdEsInvalido() {
+    void crearCourse_falla_siIdEsInvalido() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.crearModulo(0, 1);
+                useCase.crearCourse(0, 1);
 
         assertFalse(result.isSuccess());
     }
 
     @Test
-    void crearModulo_falla_siNumeroCursoEsInvalido() {
+    void crearCourse_falla_siNumeroCursoEsInvalido() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.crearModulo(1, 5);
+                useCase.crearCourse(1, 5);
 
         assertFalse(result.isSuccess());
     }
 
     @Test
-    void crearModulo_falla_siYaExiste() {
+    void crearCourse_falla_siYaExiste() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
         repo.save(new BULL_Course(1, 1));
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.crearModulo(1, 2);
+                useCase.crearCourse(1, 2);
 
         assertFalse(result.isSuccess());
     }
 
     @Test
-    void consultarModulos_falla_siNoHayModulos() {
+    void consultarCourses_falla_siNoHayCourses() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.consultarModulos();
+                useCase.consultarCourses();
 
         assertFalse(result.isSuccess());
     }
 
     @Test
-    void consultarModulos_retornaListaDeModulos() {
+    void consultarCourses_retornaListaDeCourses() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
@@ -100,11 +100,11 @@ class ManageModuleUseCaseTest {
         repo.save(new BULL_Course(1, 1));
         repo.save(new BULL_Course(2, 2));
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.consultarModulos();
+                useCase.consultarCourses();
 
         assertTrue(result.isSuccess());
 
@@ -118,99 +118,99 @@ class ManageModuleUseCaseTest {
     }
 
     @Test
-    void consultarModuloPorId_retornaModuloExistente() {
+    void consultarCoursePorId_retornaCourseExistente() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
         repo.save(new BULL_Course(10, 3));
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.consultarModuloPorId(10);
+                useCase.consultarCoursePorId(10);
 
         assertTrue(result.isSuccess());
     }
 
     @Test
-    void consultarModuloPorId_falla_siIdEsInvalido() {
+    void consultarCoursePorId_falla_siIdEsInvalido() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.consultarModuloPorId(0);
+                useCase.consultarCoursePorId(0);
 
         assertFalse(result.isSuccess());
     }
 
     @Test
-    void consultarModuloPorId_falla_siNoExiste() {
+    void consultarCoursePorId_falla_siNoExiste() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.consultarModuloPorId(99);
+                useCase.consultarCoursePorId(99);
 
         assertFalse(result.isSuccess());
     }
 
     @Test
-    void eliminarModulo_eliminaCorrectamente() {
+    void eliminarCourse_eliminaCorrectamente() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
         repo.save(new BULL_Course(1, 1));
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.eliminarModulo(1);
+                useCase.eliminarCourse(1);
 
         assertTrue(result.isSuccess());
 
         assertFalse(
-                repo.findByIdModule(1).isPresent()
+                repo.findByIdCourse(1).isPresent()
         );
     }
 
     @Test
-    void eliminarModulo_falla_siIdEsInvalido() {
+    void eliminarCourse_falla_siIdEsInvalido() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.eliminarModulo(0);
+                useCase.eliminarCourse(0);
 
         assertFalse(result.isSuccess());
     }
 
     @Test
-    void eliminarModulo_falla_siNoExiste() {
+    void eliminarCourse_falla_siNoExiste() {
 
         BULL_CourseRepository repo =
                 new BULL_InMemoryCourseRepository();
 
-        ManageModuleUseCase useCase =
-                new ManageModuleUseCase(repo);
+        ManageCourseUseCase useCase =
+                new ManageCourseUseCase(repo);
 
         OperationResult result =
-                useCase.eliminarModulo(50);
+                useCase.eliminarCourse(50);
 
         assertFalse(result.isSuccess());
     }
