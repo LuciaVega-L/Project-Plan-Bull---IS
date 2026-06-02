@@ -9,7 +9,6 @@ import infrastructure.repositories.BULL_InMemoryStudentRepository;
 import org.junit.jupiter.api.Test;
 
 
-import usecases.dto.ModuleOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
 

@@ -15,4 +15,8 @@ public interface BULL_StudentRegistrationService {
     interface CourseRegistrationInputPort {
         OperationResult registrar(String universityCode, CourseOptionDTO opcionElegida);
     }
+
+    interface CheckModuleInputPort {
+        List<CourseOptionDTO> consultarPorEstudiante(String universityCode);
+    }
 }

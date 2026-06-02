@@ -6,7 +6,7 @@ import infrastructure.repositories.BULL_InMemoryGroupRepository;
 import infrastructure.repositories.BULL_InMemoryModalityRepository;
 import infrastructure.repositories.BULL_InMemoryStudentRepository;
 import org.junit.jupiter.api.Test;
-import usecases.dto.ModuleOptionDTO;
+import usecases.dto.CourseOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CheckModuleUseCaseTest {
+class CheckCourseUseCaseTest {
 
     private BULL_Student createStudent() {
         return new BULL_Student(
@@ -36,16 +36,16 @@ class CheckModuleUseCaseTest {
         BULL_ModalityRepository modalityRepo = new BULL_InMemoryModalityRepository();
         BULL_GroupRepository groupRepo = new BULL_InMemoryGroupRepository();
 
-        CheckModuleUseCase useCase =
-                new CheckModuleUseCase(
+        CheckCourseUseCase useCase =
+                new CheckCourseUseCase(
                         studentRepo,
                         courseRepo,
                         modalityRepo,
                         groupRepo
                 );
 
-        List<ModuleOptionDTO> resultado =
-                useCase.consultarModulosDisponibles("999");
+        List<CourseOptionDTO> resultado =
+                useCase.consultarCoursesDisponibles("999");
 
         assertTrue(resultado.isEmpty());
     }
@@ -61,16 +61,16 @@ class CheckModuleUseCaseTest {
         BULL_Student student = createStudent();
         studentRepo.save(student);
 
-        CheckModuleUseCase useCase =
-                new CheckModuleUseCase(
+        CheckCourseUseCase useCase =
+                new CheckCourseUseCase(
                         studentRepo,
                         courseRepo,
                         modalityRepo,
                         groupRepo
                 );
 
-        List<ModuleOptionDTO> resultado =
-                useCase.consultarModulosDisponibles(
+        List<CourseOptionDTO> resultado =
+                useCase.consultarCoursesDisponibles(
                         student.getUniversityCode()
                 );
 
@@ -118,16 +118,16 @@ class CheckModuleUseCaseTest {
 
         modalityRepo.save(modality);
 
-        CheckModuleUseCase useCase =
-                new CheckModuleUseCase(
+        CheckCourseUseCase useCase =
+                new CheckCourseUseCase(
                         studentRepo,
                         courseRepo,
                         modalityRepo,
                         groupRepo
                 );
 
-        List<ModuleOptionDTO> resultado =
-                useCase.consultarModulosDisponibles(
+        List<CourseOptionDTO> resultado =
+                useCase.consultarCoursesDisponibles(
                         student.getUniversityCode()
                 );
 
@@ -137,8 +137,8 @@ class CheckModuleUseCaseTest {
     @Test
     void verificarDisponibilidad_retornaError_cuandoEstudianteNoExiste() {
 
-        CheckModuleUseCase useCase =
-                new CheckModuleUseCase(
+        CheckCourseUseCase useCase =
+                new CheckCourseUseCase(
                         new BULL_InMemoryStudentRepository(),
                         new BULL_InMemoryCourseRepository(),
                         new BULL_InMemoryModalityRepository(),
@@ -191,8 +191,8 @@ class CheckModuleUseCaseTest {
 
         modalityRepo.save(modality);
 
-        CheckModuleUseCase useCase =
-                new CheckModuleUseCase(
+        CheckCourseUseCase useCase =
+                new CheckCourseUseCase(
                         studentRepo,
                         courseRepo,
                         modalityRepo,

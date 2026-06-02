@@ -3,7 +3,7 @@ package usecases.services;
 import entities.BULL_Group;
 import entities.BULL_Registration;
 import entities.BULL_Student;
-import usecases.dto.ModuleOptionDTO;
+import usecases.dto.CourseOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
 
@@ -27,11 +27,11 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
     }
 
     @Override
-    public OperationResult registrar(String universityCode, ModuleOptionDTO opcionElegida) {
-        return inscribirModulo(universityCode, opcionElegida);
+    public OperationResult registrar(String universityCode, CourseOptionDTO opcionElegida) {
+        return inscribirCourse(universityCode, opcionElegida);
     }
 
-    public OperationResult inscribirModulo(String universityCode, ModuleOptionDTO opcionElegida) {
+    public OperationResult inscribirCourse(String universityCode, CourseOptionDTO opcionElegida) {
 
         if (universityCode == null || universityCode.trim().isEmpty()) {
             return OperationResult.fail("El código universitario no puede estar vacío.");
@@ -115,7 +115,7 @@ public class CourseRegistrationUseCase implements BULL_StudentRegistrationServic
     }
 
 
-    private String construirMensajeUbicacion(ModuleOptionDTO opcion) {
+    private String construirMensajeUbicacion(CourseOptionDTO opcion) {
         if (opcion.isEsPresencial() && opcion.getUbicacion() != null) {
             return "Aula: " + opcion.getNumAula() + " en " + opcion.getUbicacion() + ". ";
         }

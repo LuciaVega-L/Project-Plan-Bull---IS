@@ -1,5 +1,6 @@
 package adapters.ui;
 
+import entities.GradeType;
 import usecases.dto.*;
 import usecases.services.PlanBullApp;
 import java.util.Map;
@@ -179,7 +180,7 @@ public class Main {
         System.out.print("Opción: ");
         int opcionCorte = leerEntero();
 
-        String[] tipos = {"PRIMER_CORTE", "SEGUNDO_CORTE", "TERCER_CORTE"};
+        GradeType[] tipos = {GradeType.PRIMER_CORTE, GradeType.SEGUNDO_CORTE, GradeType.TERCER_CORTE};
         if (opcionCorte < 1 || opcionCorte > 3) {
             System.out.println("[!] Opción de corte no válida.");
             return;
