@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" scale="1" border="0">
+  <diagram id="Nxzw_5bfb8dLrWWlmRG2" name="Página-1">
+    <mxGraphModel dx="2251" dy="1002" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;" value="Administrador abre app" vertex="1">
+          <mxGeometry height="20" width="145" x="130" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;" value="Administrador cierra app" vertex="1">
+          <mxGeometry height="20" width="148" x="290" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Se presentan acciones disponibles" vertex="1">
+          <mxGeometry height="50" width="290" x="130" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Muestra formulario:&#xa;ID del módulo y número de curso" vertex="1">
+          <mxGeometry height="60" width="290" x="130" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="21" edge="1" parent="1" source="10" style="edgeStyle=orthogonalEdgeStyle;" target="20" value="Crear módulo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Valida que ID &gt; 0 y número de&#xa;cursos esté entre 1 y 4" vertex="1">
+          <mxGeometry height="60" width="290" x="130" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="31" edge="1" parent="1" source="20" style="edgeStyle=orthogonalEdgeStyle;" target="30" value="Administrador confirma">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="40" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Verifica que no exista un módulo&#xa;con ese ID en el repositorio" vertex="1">
+          <mxGeometry height="60" width="290" x="130" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="41" edge="1" parent="1" source="30" style="edgeStyle=orthogonalEdgeStyle;" target="40" value="Datos válidos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="50" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" value="moduloExistente?" vertex="1">
+          <mxGeometry height="70" width="190" x="180" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="51" edge="1" parent="1" source="40" style="edgeStyle=orthogonalEdgeStyle;" target="50" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="60" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Registra el módulo en el repositorio" vertex="1">
+          <mxGeometry height="60" width="290" x="130" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="61" edge="1" parent="1" source="50" style="edgeStyle=orthogonalEdgeStyle;" target="60" value="no">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="70" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Muestra resultado exitoso:&#xa;ID módulo y número de curso registrados" vertex="1">
+          <mxGeometry height="60" width="290" x="130" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="71" edge="1" parent="1" source="60" style="edgeStyle=orthogonalEdgeStyle;" target="70" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="72" edge="1" parent="1" source="70" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="10" value="Volver menú">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="940" />
+              <mxPoint x="500" y="940" />
+              <mxPoint x="500" y="145" />
+              <mxPoint x="420" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="100" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Muestra mensaje de error:&#xa;ID debe ser &gt; 0 / Núm. cursos&#xa;debe estar entre 1 y 4" vertex="1">
+          <mxGeometry height="70" width="230" x="530" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="101" edge="1" parent="1" source="30" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="100" value="Datos inválidos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="102" edge="1" parent="1" source="100" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="10" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="420" />
+              <mxPoint x="800" y="145" />
+              <mxPoint x="420" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="110" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#ffffff;strokeColor=#000000;fontStyle=0;fontSize=11;" value="Muestra mensaje de error:&#xa;Ya existe un módulo con ese ID" vertex="1">
+          <mxGeometry height="60" width="230" x="530" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="111" edge="1" parent="1" source="50" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="110" value="yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="112" edge="1" parent="1" source="110" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="10" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="675" />
+              <mxPoint x="800" y="145" />
+              <mxPoint x="420" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d6w6VduJ6cJixbHxMJdm-112" parent="1" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="187" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="d6w6VduJ6cJixbHxMJdm-113" edge="1" parent="1" source="d6w6VduJ6cJixbHxMJdm-112" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="10" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="395" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d6w6VduJ6cJixbHxMJdm-115" parent="1" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="331" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="d6w6VduJ6cJixbHxMJdm-117" edge="1" parent="1" source="10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.547;entryY=0.753;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#FF0000;" target="d6w6VduJ6cJixbHxMJdm-115">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

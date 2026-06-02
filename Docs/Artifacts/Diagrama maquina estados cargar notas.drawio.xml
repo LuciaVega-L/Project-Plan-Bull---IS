@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="Lr9cMmWBR5KCBj7qGiez">
+    <mxGraphModel dx="1447" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kjufQkhud4suAbSmfgLy-1" parent="1" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="220" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-2" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-1" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="235" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-5" connectable="0" parent="kjufQkhud4suAbSmfgLy-2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="clic &quot;cargar notas&quot;" vertex="1">
+          <mxGeometry relative="1" x="-0.2222" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-3" parent="1" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="392" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-7" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="kjufQkhud4suAbSmfgLy-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Sistema valida que lista estudiantes no este vacia&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="260" x="210" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-13" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="kjufQkhud4suAbSmfgLy-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-14" connectable="0" parent="kjufQkhud4suAbSmfgLy-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="no" vertex="1">
+          <mxGeometry relative="1" x="-0.4667" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-22" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="kjufQkhud4suAbSmfgLy-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="375" />
+              <mxPoint x="510" y="265" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-23" connectable="0" parent="kjufQkhud4suAbSmfgLy-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="yes" vertex="1">
+          <mxGeometry relative="1" x="-0.614" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-6" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Estudiantes=null?" vertex="1">
+          <mxGeometry height="70" width="110" x="285" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-15" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="kjufQkhud4suAbSmfgLy-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-16" connectable="0" parent="kjufQkhud4suAbSmfgLy-15" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Profesor ingresa y carga" vertex="1">
+          <mxGeometry relative="1" x="-0.1667" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Sistema muestra lista estudiantes" vertex="1">
+          <mxGeometry height="60" width="120" x="170" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-17" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="kjufQkhud4suAbSmfgLy-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Sistema valida que notas ingresadas esten en formato correcto&amp;nbsp;" vertex="1">
+          <mxGeometry height="60" width="120" x="170" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-24" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="kjufQkhud4suAbSmfgLy-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="650" />
+              <mxPoint x="510" y="185" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-25" connectable="0" parent="kjufQkhud4suAbSmfgLy-24" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="mensaje confirmación&amp;nbsp;" vertex="1">
+          <mxGeometry relative="1" x="0.0342" y="-3" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Sistema guarda notas" vertex="1">
+          <mxGeometry height="60" width="120" x="170" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-21" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="kjufQkhud4suAbSmfgLy-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="345" y="225" />
+              <mxPoint x="340" y="225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-26" edge="1" parent="1" source="kjufQkhud4suAbSmfgLy-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#FF0000;endArrow=open;endFill=0;" target="kjufQkhud4suAbSmfgLy-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kjufQkhud4suAbSmfgLy-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Sistema muestra la vista de carga de notas" vertex="1">
+          <mxGeometry height="30" width="250" x="220" y="170" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
