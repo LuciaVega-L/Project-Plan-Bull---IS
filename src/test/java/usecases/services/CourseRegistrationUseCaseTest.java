@@ -9,6 +9,7 @@ import infrastructure.repositories.BULL_InMemoryStudentRepository;
 import org.junit.jupiter.api.Test;
 
 
+import usecases.dto.CourseOptionDTO;
 import usecases.dto.OperationResult;
 import usecases.ports.*;
 
@@ -28,8 +29,8 @@ class CourseRegistrationUseCaseTest {
         );
     }
 
-    private ModuleOptionDTO createOption() {
-        return new ModuleOptionDTO(
+    private CourseOptionDTO createOption() {
+        return new CourseOptionDTO(
                 1,
                 3,
                 "Presencial",
@@ -55,7 +56,7 @@ class CourseRegistrationUseCaseTest {
                 );
 
         OperationResult resultado =
-                useCase.inscribirModulo("", createOption());
+                useCase.inscribirCourse("", createOption());
 
         assertFalse(resultado.isSuccess());
     }
@@ -73,7 +74,7 @@ class CourseRegistrationUseCaseTest {
                 );
 
         OperationResult resultado =
-                useCase.inscribirModulo("20201234", null);
+                useCase.inscribirCourse("20201234", null);
 
         assertFalse(resultado.isSuccess());
     }
@@ -91,7 +92,7 @@ class CourseRegistrationUseCaseTest {
                 );
 
         OperationResult resultado =
-                useCase.inscribirModulo(
+                useCase.inscribirCourse(
                         "99999",
                         createOption()
                 );
@@ -117,7 +118,7 @@ class CourseRegistrationUseCaseTest {
                 );
 
         OperationResult resultado =
-                useCase.inscribirModulo(
+                useCase.inscribirCourse(
                         "20201234",
                         createOption()
                 );
@@ -150,7 +151,7 @@ class CourseRegistrationUseCaseTest {
                 );
 
         OperationResult resultado =
-                useCase.inscribirModulo(
+                useCase.inscribirCourse(
                         "20201234",
                         createOption()
                 );
@@ -197,7 +198,7 @@ class CourseRegistrationUseCaseTest {
                 );
 
         OperationResult resultado =
-                useCase.inscribirModulo(
+                useCase.inscribirCourse(
                         "20201234",
                         createOption()
                 );
@@ -247,7 +248,7 @@ class CourseRegistrationUseCaseTest {
                 );
 
         OperationResult resultado =
-                useCase.inscribirModulo(
+                useCase.inscribirCourse(
                         "20201234",
                         createOption()
                 );
