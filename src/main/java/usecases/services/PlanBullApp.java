@@ -298,30 +298,36 @@ public class PlanBullApp {
     }
 
     public void cargarDatosPrueba() {
-        // Profesor
+
         BULL_Professor prof = new BULL_Professor("DOC-001", "Carlos Pérez", "carlos@bull.edu");
         professorRepository.save(prof);
 
-        // Estudiante (semestre 5 → le corresponde courseNumber 3)
         BULL_Student est = new BULL_Student(
                 "160005207", "David", "Beltran",
                 "david@bull.edu", 5, "Sistemas", false
         );
         studentRepository.save(est);
 
-        // Curso (courseNumber 3 → semestre 5-6)
-        BULL_Course curso = new BULL_Course(1, 3);
-        courseRepository.save(curso);
-
-        // Grupo con cupo, sin inscribir
         BULL_Group grupo = new BULL_Group(10);
         grupo.setProfessor(prof);
         grupo.setMaxCapacity(new BULL_MaxCapacity(30));
+        BULL_Schedule horario = new BULL_Schedule();
+        horario.addTimeSlot("Lunes", "07:00-09:00");
+        horario.addTimeSlot("Miércoles", "07:00-09:00");
+        grupo.setSchedule(horario);
         groupRepository.save(grupo);
 
-        // Modalidad presencial con ese grupo
         BULL_OnSitePresencial modalidad = new BULL_OnSitePresencial();
         modalidad.addGroup(grupo);
         modalityRepository.save(modalidad);
+
+        BULL_Semester semestre = new BULL_Semester(2026, 1,
+                new java.util.Date(125, 0, 1),
+                new java.util.Date(126, 5, 30));
+        semestre.addModality(modalidad);
+
+        BULL_Course curso = new BULL_Course(1, 1);
+        curso.addSemester(semestre);
+        courseRepository.save(curso);
     }
 }
