@@ -13,7 +13,7 @@ class BULL_CourseTest {
     void constructor_creaCursoCorrectamente_cuandoDatosSonValidos() {
         BULL_Course course = new BULL_Course(1, 2);
 
-        assertEquals(1, course.getIdModule(),
+        assertEquals(1, course.getIdCourse(),
                 "El id del módulo debería ser 1");
         assertEquals(2, course.getCourseNumber(),
                 "El número de curso debería ser 2");
@@ -116,7 +116,7 @@ class BULL_CourseTest {
         String result = course.toString();
 
         assertEquals(
-                "Course{idModule=10, courseNumber=3}",
+                "Course{idCourse=10, courseNumber=3}",
                 result,
                 "El toString debería coincidir con el formato esperado"
         );

@@ -118,7 +118,7 @@ public class PlanBullApp {
         this.requestHomologationUseCase = new RequestHomologationUseCase(
                 studentRepository, homologationRepository);
 
-        this.validateHomologationUseCase = new ValidateHomologationUseCase(homologationRepository, studentRepository);
+        this.validateHomologationUseCase = new ValidateHomologationUseCase(homologationRepository);
 
         this.announceCallUseCase      = new AnnounceCallForApplicationsUseCase(studentRepository);
         this.establishCalendarUseCase = new EstablishCalendarUseCase(groupRepository, scheduleRepository);

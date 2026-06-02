@@ -10,13 +10,11 @@ import java.util.Optional;
 public class ValidateHomologationUseCase {
 
     private final BULL_HomologationRepository homologationRepository;
-    private final BULL_StudentRepository      studentRepository;
 
-    public ValidateHomologationUseCase(BULL_HomologationRepository homologationRepository,
-                                       BULL_StudentRepository      studentRepository
+
+    public ValidateHomologationUseCase(BULL_HomologationRepository homologationRepository
                                        ) {
         this.homologationRepository = homologationRepository;
-        this.studentRepository      = studentRepository;
 
     }
 

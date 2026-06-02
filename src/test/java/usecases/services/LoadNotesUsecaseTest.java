@@ -3,10 +3,12 @@ package usecases.services;
 import entities.*;
 import infrastructure.repositories.BULL_InMemoryGroupRepository;
 import infrastructure.repositories.BULL_InMemoryRegistrationRepository;
+import infrastructure.repositories.BULL_InMemoryStudentRepository;
 import org.junit.jupiter.api.Test;
 import usecases.dto.OperationResult;
 import usecases.ports.BULL_GroupRepository;
 import usecases.ports.BULL_RegistrationRepository;
+import usecases.ports.BULL_StudentRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +32,8 @@ class LoadNotesUsecaseTest {
         LoadNotesUsecase useCase =
                 new LoadNotesUsecase(
                         new BULL_InMemoryGroupRepository(),
-                        new BULL_InMemoryRegistrationRepository()
+                        new BULL_InMemoryRegistrationRepository(),
+                        new BULL_InMemoryStudentRepository()
                 );
 
         OperationResult resultado =
@@ -50,7 +53,8 @@ class LoadNotesUsecaseTest {
         LoadNotesUsecase useCase =
                 new LoadNotesUsecase(
                         new BULL_InMemoryGroupRepository(),
-                        new BULL_InMemoryRegistrationRepository()
+                        new BULL_InMemoryRegistrationRepository(),
+                        new BULL_InMemoryStudentRepository()
                 );
 
         OperationResult resultado =
@@ -70,7 +74,8 @@ class LoadNotesUsecaseTest {
         LoadNotesUsecase useCase =
                 new LoadNotesUsecase(
                         new BULL_InMemoryGroupRepository(),
-                        new BULL_InMemoryRegistrationRepository()
+                        new BULL_InMemoryRegistrationRepository(),
+                        new BULL_InMemoryStudentRepository()
                 );
 
         OperationResult resultado =
@@ -90,7 +95,8 @@ class LoadNotesUsecaseTest {
         LoadNotesUsecase useCase =
                 new LoadNotesUsecase(
                         new BULL_InMemoryGroupRepository(),
-                        new BULL_InMemoryRegistrationRepository()
+                        new BULL_InMemoryRegistrationRepository(),
+                        new BULL_InMemoryStudentRepository()
                 );
 
         OperationResult resultado =
@@ -117,7 +123,8 @@ class LoadNotesUsecaseTest {
         LoadNotesUsecase useCase =
                 new LoadNotesUsecase(
                         groupRepo,
-                        new BULL_InMemoryRegistrationRepository()
+                        new BULL_InMemoryRegistrationRepository(),
+                        new BULL_InMemoryStudentRepository()
                 );
 
         OperationResult resultado =
@@ -152,7 +159,8 @@ class LoadNotesUsecaseTest {
         LoadNotesUsecase useCase =
                 new LoadNotesUsecase(
                         groupRepo,
-                        new BULL_InMemoryRegistrationRepository()
+                        new BULL_InMemoryRegistrationRepository(),
+                        new BULL_InMemoryStudentRepository()
                 );
 
         OperationResult resultado =
@@ -194,7 +202,8 @@ class LoadNotesUsecaseTest {
         LoadNotesUsecase useCase =
                 new LoadNotesUsecase(
                         groupRepo,
-                        registrationRepo
+                        registrationRepo,
+                        new BULL_InMemoryStudentRepository()
                 );
 
         OperationResult resultado =
