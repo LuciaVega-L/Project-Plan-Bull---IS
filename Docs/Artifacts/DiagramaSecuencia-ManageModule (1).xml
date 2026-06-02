@@ -1,0 +1,276 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Secuencia-ManageModule" id="secuencia-manage-module">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="actor" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Administrador" vertex="1">
+          <mxGeometry height="60" width="30" x="155" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ui" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;" value="BULL_UI" vertex="1">
+          <mxGeometry height="80" width="100" x="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uc" parent="1" style="ellipse;shape=umlControl;whiteSpace=wrap;html=1;" value="ManageModuleUseCase" vertex="1">
+          <mxGeometry height="80" width="120" x="460" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="repo" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;" value="BULL_CourseRepository" vertex="1">
+          <mxGeometry height="80" width="120" x="660" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="course" parent="1" style="ellipse;shape=umlEntity;whiteSpace=wrap;html=1;" value="BULL_Course" vertex="1">
+          <mxGeometry height="80" width="100" x="870" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="life-actor" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="120" as="sourcePoint" />
+            <mxPoint x="170" y="1580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="life-ui" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="120" as="sourcePoint" />
+            <mxPoint x="330" y="1580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="life-uc" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520" y="120" as="sourcePoint" />
+            <mxPoint x="520" y="1580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="life-repo" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="120" as="sourcePoint" />
+            <mxPoint x="720" y="1580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="life-course" edge="1" parent="1" source="act-course-1" style="endArrow=none;dashed=1;html=1;rounded=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="920" y="120" as="sourcePoint" />
+            <mxPoint x="920" y="1580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="act-ui" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="1380" width="10" x="325" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="act-uc" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="1280" width="10" x="515" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="msg1" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="1. gestionarModulo(opcion=CREAR)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="200" as="sourcePoint" />
+            <mxPoint x="325" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg2" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="2. crearModulo(idModule, courseNumber)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="335" y="240" as="sourcePoint" />
+            <mxPoint x="515" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg3" edge="1" parent="1" source="act-uc" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="act-uc" value="3. validar(idModule , courseNumber)">
+          <mxGeometry relative="1" x="0.7671" y="50" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="525" y="280" />
+              <mxPoint x="590" y="280" />
+              <mxPoint x="590" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg4" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="4. findByIdModule(idModule)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="360" as="sourcePoint" />
+            <mxPoint x="720" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="act-repo-1" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="50" width="10" x="715" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="msg5" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="5.ok">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="715" y="410" as="sourcePoint" />
+            <mxPoint x="525" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg6" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="6. new BULL_Course(idModule, courseNumber)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="450" as="sourcePoint" />
+            <mxPoint x="920" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="act-course-1" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="50" width="10" x="915" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="msg7" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="7. curso : BULL_Course">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="915" y="500" as="sourcePoint" />
+            <mxPoint x="525" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg8" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="8. save(curso)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="540" as="sourcePoint" />
+            <mxPoint x="720" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RfTCSM0ppLYdVodLGXwi-1" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="570" as="sourcePoint" />
+            <mxPoint x="525" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RfTCSM0ppLYdVodLGXwi-2" connectable="0" parent="RfTCSM0ppLYdVodLGXwi-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="9.ok" vertex="1">
+          <mxGeometry relative="1" x="-0.1989" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="act-repo-2" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="40" width="10" x="715" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="msg9" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;dashed=1;" value="10. OperationResult.ok(&quot;Módulo creado&quot;)">
+          <mxGeometry relative="1" x="0.0028" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="515" y="600" as="sourcePoint" />
+            <mxPoint x="335" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg10" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="11. mostrarResultado(ok)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="325" y="640" as="sourcePoint" />
+            <mxPoint x="170" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg11" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="12. gestionarModulo(opcion=CONSULTAR)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="720" as="sourcePoint" />
+            <mxPoint x="325" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg12" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="13. consultarModulos()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="335" y="760" as="sourcePoint" />
+            <mxPoint x="515" y="760" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg13" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="14. findAll()">
+          <mxGeometry relative="1" x="0.0008" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="525" y="800" as="sourcePoint" />
+            <mxPoint x="720" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="act-repo-3" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="50" width="10" x="715" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="msg14" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="15. List">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="715" y="850" as="sourcePoint" />
+            <mxPoint x="525" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg15" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;dashed=1;" value="16. OperationResult.ok(listado módulos)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="900" as="sourcePoint" />
+            <mxPoint x="335" y="900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg16" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="17. mostrarListado(módulos)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="325" y="940" as="sourcePoint" />
+            <mxPoint x="170" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg17" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="18. gestionarModulo(opcion=ELIMINAR)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="1020" as="sourcePoint" />
+            <mxPoint x="325" y="1020" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg18" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="19. eliminarModulo(idModule)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="335" y="1060" as="sourcePoint" />
+            <mxPoint x="515" y="1060" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg19" edge="1" parent="1" source="act-uc" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="20. validar(idModule)">
+          <mxGeometry relative="1" x="-0.1905" y="40" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="590" y="1100" />
+              <mxPoint x="590" y="1140" />
+              <mxPoint x="525" y="1140" />
+            </Array>
+            <mxPoint x="525" y="1100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg20" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="21. findByIdModule(idModule)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="1180" as="sourcePoint" />
+            <mxPoint x="720" y="1180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="act-repo-4" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="50" width="10" x="715" y="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="msg21" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="22. Ok">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="715" y="1230" as="sourcePoint" />
+            <mxPoint x="525" y="1230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg22" edge="1" parent="1" source="act-uc" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" target="act-uc" value="23. curso.getSemesters().isEmpty()">
+          <mxGeometry relative="1" y="30" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="590" y="1270" />
+              <mxPoint x="590" y="1310" />
+            </Array>
+            <mxPoint x="540" y="1292" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg23" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="24. deleteByIdModule(idModule)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="1350" as="sourcePoint" />
+            <mxPoint x="720" y="1350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7FwW5_hQhZxuPF7nbFv5-2" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="1379.97" />
+              <mxPoint x="570" y="1379.97" />
+            </Array>
+            <mxPoint x="714.9999999999998" y="1380.0003030303033" as="sourcePoint" />
+            <mxPoint x="524.9999999999998" y="1380.0003030303033" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7FwW5_hQhZxuPF7nbFv5-3" connectable="0" parent="7FwW5_hQhZxuPF7nbFv5-2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="25. ok" vertex="1">
+          <mxGeometry relative="1" x="-0.192" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="act-repo-5" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;" value="" vertex="1">
+          <mxGeometry height="40" width="10" x="715" y="1350" as="geometry" />
+        </mxCell>
+        <mxCell id="msg24" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;" value="26. OperationResult.ok(&quot;Módulo eliminado&quot;)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="1410" as="sourcePoint" />
+            <mxPoint x="335" y="1410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg25" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;fontSize=11;dashed=1;" value="27. mostrarResultado(ok)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="325" y="1450" as="sourcePoint" />
+            <mxPoint x="170" y="1450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Jn0d56zeSpMqir67mjuX-1" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;" target="act-course-1" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="920" y="120" as="sourcePoint" />
+            <mxPoint x="920" y="1580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
